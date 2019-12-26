@@ -91,7 +91,11 @@ open class BaseAdapter<T, L : BaseListener, VH : BaseViewHolder<T, L>>(ctx: Cont
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items.get(position)
-        holder.onBind(item, listen)
+        if (::listen.isInitialized) {
+            holder.onBind(item, listen)
+        } else {
+            holder.onBind(item, null)
+        }
     }
 
 }

@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
         rvGeneral.layoutManager = LinearLayoutManager(this)
         rvGeneral.adapter = adapter
         adapter.setItem(dummies)
-        adapter.setListener(object : DummyListener<Dummy> {
-            override fun onItemClicked(item: Dummy) {
-                Toast.makeText(ctx, "Clicked ${item.desc}", Toast.LENGTH_SHORT).show()
-            }
-        })
+//        adapter.setListener(object : DummyListener<Dummy> {
+//            override fun onItemClicked(item: Dummy) {
+//                Toast.makeText(ctx, "Clicked ${item.desc}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
     }
 }
