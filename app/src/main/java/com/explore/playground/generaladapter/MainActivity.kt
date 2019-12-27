@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = DummyAdapter(this)
+        val adapter = DummyRecylerAdapter(this)
         val dummies = mutableListOf<Dummy>()
         val dummy = Dummy("1", "Belajar")
         val ctx: Context = this
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         rvGeneral.layoutManager = LinearLayoutManager(this)
         rvGeneral.adapter = adapter
         adapter.setItem(dummies)
-        adapter.listen = object : DummyListener {
+        adapter.listen = object : DummyRecylerAdapter.DummyListener {
             override fun onItemClicked(item: Dummy) {
                 Toast.makeText(ctx, "Clicked ${item.desc}", Toast.LENGTH_SHORT).show()
             }

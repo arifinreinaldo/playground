@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import com.explore.playground.R
-import com.explore.playground.generaladapter.base.BaseAdapter
+import com.explore.playground.generaladapter.base.BaseRecylerAdapter
 import com.explore.playground.generaladapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.adapter_list.view.*
 
@@ -13,15 +13,21 @@ data class Dummy(
     val desc: String
 )
 
-interface DummyListener {
-    fun onItemClicked(item: Dummy)
-}
+//interface DummyListener {
+//    fun onItemClicked(item: Dummy)
+//}
 
-class DummyAdapter(ctx: Context) : BaseAdapter<Dummy, DummyAdapter.ViewHolder>(ctx) {
+class DummyRecylerAdapter(ctx: Context) :
+    BaseRecylerAdapter<Dummy, DummyRecylerAdapter.ViewHolder>(ctx) {
 
-    lateinit var listen : DummyListener
+    lateinit var listen: DummyListener
 
-    class ViewHolder(itemView: View, val listener: DummyListener) : BaseViewHolder<Dummy>(itemView) {
+    interface DummyListener {
+        fun onItemClicked(item: Dummy)
+    }
+
+    class ViewHolder(itemView: View, val listener: DummyListener) :
+        BaseViewHolder<Dummy>(itemView) {
         val tvTitle = itemView.tvTitle
         val llRecord = itemView.llRecord
         val tvDesc = itemView.tvDesc

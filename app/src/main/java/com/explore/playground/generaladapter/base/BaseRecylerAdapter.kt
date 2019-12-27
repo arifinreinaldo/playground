@@ -9,7 +9,7 @@ import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 
 
-open class BaseAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
+open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
     RecyclerView.Adapter<VH>() {
 
     var items: MutableList<T> = mutableListOf()
