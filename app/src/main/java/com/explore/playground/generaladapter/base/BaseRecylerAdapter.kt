@@ -1,5 +1,6 @@
 package com.explore.playground.generaladapter.base
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,11 @@ import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 
 
-open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>> :
+open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
     RecyclerView.Adapter<VH>() {
 
     var items: MutableList<T> = mutableListOf()
+    var layoutInflater: LayoutInflater = LayoutInflater.from(ctx)
 
     fun setItem(items: MutableList<T>) {
         items?.let {
@@ -66,7 +68,7 @@ open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>> :
     }
 
     fun inflate(@LayoutRes layout: Int, @Nullable parent: ViewGroup, root: Boolean): View {
-        return LayoutInflater.from(parent.context).inflate(layout, parent, root)
+        return layoutInflater.inflate(layout, parent, root)
     }
 
     fun inflate(@LayoutRes layout: Int, @Nullable parent: ViewGroup): View {

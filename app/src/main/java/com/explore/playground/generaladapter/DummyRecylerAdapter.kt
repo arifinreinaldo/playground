@@ -1,5 +1,6 @@
 package com.explore.playground.generaladapter
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import com.explore.playground.R
@@ -12,12 +13,8 @@ data class Dummy(
     val desc: String
 )
 
-//interface DummyListener {
-//    fun onItemClicked(item: Dummy)
-//}
-
-class DummyRecylerAdapter :
-    BaseRecylerAdapter<Dummy, DummyRecylerAdapter.ViewHolder>() {
+class DummyRecylerAdapter(ctx: Context) :
+    BaseRecylerAdapter<Dummy, DummyRecylerAdapter.ViewHolder>(ctx) {
 
     lateinit var listen: DummyListener
 
@@ -34,7 +31,7 @@ class DummyRecylerAdapter :
             tvTitle.text = item.title
             tvDesc.text = item.desc
             llRecord.setOnClickListener {
-                listener.onItemClicked(item)
+                listener?.onItemClicked(item)
             }
         }
 
