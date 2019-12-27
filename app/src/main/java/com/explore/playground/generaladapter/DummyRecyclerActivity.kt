@@ -1,19 +1,18 @@
-package com.explore.playground
+package com.explore.playground.generaladapter
 
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.explore.playground.generaladapter.Dummy
-import com.explore.playground.generaladapter.DummyRecylerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.explore.playground.R
+import kotlinx.android.synthetic.main.activity_dummy_recycler.*
 
-class MainActivity : AppCompatActivity() {
+class DummyRecyclerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_dummy_recycler)
 
         val adapter = DummyRecylerAdapter(this)
         val dummies = mutableListOf<Dummy>()
