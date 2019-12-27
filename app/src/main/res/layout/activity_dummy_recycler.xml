@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".generaladapter.MainActivity">
+    tools:context=".generaladapter.DummyRecyclerActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGeneral"

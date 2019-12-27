@@ -1,11 +1,12 @@
-package com.explore.playground.generaladapter
+package com.explore.playground
 
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.explore.playground.R
+import com.explore.playground.generaladapter.Dummy
+import com.explore.playground.generaladapter.DummyRecylerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = DummyRecylerAdapter()
+        val adapter = DummyRecylerAdapter(this)
         val dummies = mutableListOf<Dummy>()
         val dummy = Dummy("1", "Belajar")
         val ctx: Context = this
@@ -22,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         rvGeneral.layoutManager = LinearLayoutManager(this)
         rvGeneral.adapter = adapter
         adapter.setItem(dummies)
-        adapter.listen = object : DummyRecylerAdapter.DummyListener {
+        adapter.listen = object :
+            DummyRecylerAdapter.DummyListener {
             override fun onItemClicked(item: Dummy) {
                 Toast.makeText(ctx, "Clicked ${item.desc}", Toast.LENGTH_SHORT).show()
             }
