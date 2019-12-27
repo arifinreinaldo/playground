@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = DummyRecylerAdapter(this)
+        val adapter = DummyRecylerAdapter()
         val dummies = mutableListOf<Dummy>()
         val dummy = Dummy("1", "Belajar")
         val ctx: Context = this
