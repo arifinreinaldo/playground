@@ -9,16 +9,11 @@ import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 
 
-open class BaseAdapter<T, L : BaseListener, VH : BaseViewHolder<T, L>>(ctx: Context) :
+open class BaseAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
     RecyclerView.Adapter<VH>() {
 
     var items: MutableList<T> = mutableListOf()
-    lateinit var listen: L
     var layoutInflater: LayoutInflater = LayoutInflater.from(ctx)
-
-    fun setListener(listen: L) {
-        this.listen = listen
-    }
 
     fun setItem(items: MutableList<T>) {
         items?.let {
@@ -91,20 +86,12 @@ open class BaseAdapter<T, L : BaseListener, VH : BaseViewHolder<T, L>>(ctx: Cont
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items.get(position)
-        if (::listen.isInitialized) {
-            holder.onBind(item, listen)
-        } else {
-            holder.onBind(item, null)
-        }
+        holder.onBind(item)
     }
 
 }
 
-abstract class BaseViewHolder<T, L : BaseListener>(itemView: View) :
+abstract class BaseViewHolder<T>(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
-    abstract fun onBind(item: T, listen: L?)
-}
-
-interface BaseListener {
-
+    abstract fun onBind(item: T)
 }
