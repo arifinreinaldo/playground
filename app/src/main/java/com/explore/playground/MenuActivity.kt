@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
 import com.explore.playground.otptemplate.OTPActivity
+import com.explore.playground.recorder.AudioRecordTest
 import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
@@ -21,6 +22,9 @@ class MenuActivity : AppCompatActivity() {
         btOTP.setOnClickListener {
             val intent = Intent(this, OTPActivity::class.java)
             startActivity(intent)
+        }
+        btRecord.setOnClickListener {
+            startActivity(Intent(this, AudioRecordTest::class.java))
         }
     }
 }
