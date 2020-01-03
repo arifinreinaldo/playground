@@ -36,7 +36,7 @@ class RecordingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recording)
 
 
-        fileSource = "${externalCacheDir?.absolutePath}/audiorecordtest2.aac"
+        fileSource = "${externalCacheDir?.absolutePath}/audiorecordtest2.mp4"
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
@@ -84,7 +84,7 @@ class RecordingActivity : AppCompatActivity() {
     private fun startRecord() {
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             setOutputFile(fileSource)
             setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
 
