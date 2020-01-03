@@ -141,7 +141,7 @@ class AudioRecordTest : AppCompatActivity() {
         super.onCreate(icicle)
 
         // Record to the external cache directory for visibility
-        fileName = "${externalCacheDir?.absolutePath}/audiorecordtest.mp3"
+        fileName = "${externalCacheDir?.absolutePath}/audiorecordtest.3gp"
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
