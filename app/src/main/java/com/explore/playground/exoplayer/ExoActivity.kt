@@ -50,9 +50,9 @@ class ExoActivity : AppCompatActivity() {
         playerView.showTimeoutMs = -1 //biar control ga ilang
 
         player.playWhenReady = false //initial player stop
-//        player.prepare(getFromURL(sourceURL))
+        player.prepare(getFromURL(sourceURL))
 //        player.prepare(getFromRawFile())
-        player.prepare(getFromStorage())
+//        player.prepare(getFromStorage())
 
         player.addListener(object : Player.EventListener {
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
