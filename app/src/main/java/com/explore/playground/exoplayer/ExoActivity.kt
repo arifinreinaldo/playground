@@ -47,7 +47,7 @@ class ExoActivity : AppCompatActivity() {
 
         val player = SimpleExoPlayer.Builder(this).build()
         playerView.player = player
-        playerView.showTimeoutMs = -1 //biar control ga ilang
+        playerView.showTimeoutMs = -1 //biar control ga ilang PENTING
 
         player.playWhenReady = false //initial player stop
         player.prepare(getFromURL(sourceURL))
