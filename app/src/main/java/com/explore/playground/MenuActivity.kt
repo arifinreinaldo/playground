@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
+import com.explore.playground.navigator.NavigatorActivity
 import com.explore.playground.otptemplate.OTPActivity
 import com.explore.playground.recorder.RecordingActivity
 import com.explore.playground.speechrecognition.SpeechRecogActivity
@@ -36,6 +37,10 @@ class MenuActivity : AppCompatActivity() {
         }
         btRecog.setOnClickListener {
             startActivity(Intent(this, SpeechRecogActivity::class.java))
+            Log.d("Manifest", "")
+        }
+        btNav.setOnClickListener {
+            startActivity(Intent(this, NavigatorActivity::class.java))
             Log.d("Manifest", "")
         }
     }

@@ -9,7 +9,7 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.view.MotionEvent
 import androidx.core.app.ActivityCompat
-import com.explore.playground.BaseActivity
+import com.explore.playground.base.BaseActivity
 import com.explore.playground.R
 import kotlinx.android.synthetic.main.activity_speech_recog.*
 
