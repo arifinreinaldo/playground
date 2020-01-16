@@ -8,24 +8,19 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.view.MotionEvent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.explore.playground.BaseActivity
 import com.explore.playground.R
 import kotlinx.android.synthetic.main.activity_speech_recog.*
 
 private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
 
-class SpeechRecogActivity : AppCompatActivity() {
-    private var permissions: Array<String> = arrayOf(
-        Manifest.permission.RECORD_AUDIO,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE
-    )
-    private var permissionToRecordAccepted = false
+class SpeechRecogActivity : BaseActivity() {
+    override fun setLayoutId(): Int {
+        return R.layout.activity_speech_recog
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_speech_recog)
+    override fun setInit() {
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
@@ -95,6 +90,12 @@ class SpeechRecogActivity : AppCompatActivity() {
         }
     }
 
+    private var permissions: Array<String> = arrayOf(
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
+    private var permissionToRecordAccepted = false
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
