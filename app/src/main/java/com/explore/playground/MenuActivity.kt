@@ -8,6 +8,7 @@ import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
 import com.explore.playground.otptemplate.OTPActivity
 import com.explore.playground.recorder.RecordingActivity
+import com.explore.playground.speechrecognition.SpeechRecogActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
@@ -31,6 +32,10 @@ class MenuActivity : AppCompatActivity() {
         }
         btExo.setOnClickListener {
             startActivity(Intent(this, ExoActivity::class.java))
+            Log.d("Manifest", "")
+        }
+        btRecog.setOnClickListener {
+            startActivity(Intent(this, SpeechRecogActivity::class.java))
             Log.d("Manifest", "")
         }
     }
