@@ -1,24 +1,23 @@
 package com.explore.playground.navigator
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.explore.playground.R
+import com.explore.playground.base.BaseFragment
 
 /**
  * A simple [Fragment] subclass.
  */
-class AnotherFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_another, container, false)
+class AnotherFragment : BaseFragment() {
+    override fun setLayoutId(): Int {
+        return R.layout.fragment_another
     }
 
+    override fun setInit() {
+        val args = HomeFragmentDirections.homeToAnother().arguments
+        val values = args.getString("id")
+        Log.d("VALUE", values)
+    }
 
 }

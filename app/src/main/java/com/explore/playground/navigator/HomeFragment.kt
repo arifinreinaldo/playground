@@ -13,7 +13,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : BaseFragment() {
     override fun setInit() {
         btPencet.setOnClickListener {
-            it.findNavController().navigate(R.id.homeToAnother)
+            val values = "1"
+            val action =
+                HomeFragmentDirections.homeToAnother(values)
+            it.findNavController().navigate(action)
         }
     }
 

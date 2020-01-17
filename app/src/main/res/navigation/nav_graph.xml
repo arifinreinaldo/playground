@@ -20,5 +20,10 @@
         android:id="@+id/anotherFragment"
         android:name="com.explore.playground.navigator.AnotherFragment"
         android:label="fragment_another"
-        tools:layout="@layout/fragment_another" />
+        tools:layout="@layout/fragment_another">
+        <argument
+            android:name="id"
+            android:defaultValue='"0"'
+            app:argType="string" />
+    </fragment>
 </navigation>
