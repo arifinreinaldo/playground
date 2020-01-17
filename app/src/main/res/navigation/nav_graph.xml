@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_another">
         <argument
             android:name="id"
-            android:defaultValue='"0"'
+            android:defaultValue="badal"
             app:argType="string" />
     </fragment>
 </navigation>

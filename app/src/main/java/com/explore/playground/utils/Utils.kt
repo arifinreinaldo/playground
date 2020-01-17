@@ -1,6 +1,7 @@
 package com.explore.playground.utils
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -26,4 +27,10 @@ fun Button.disableFunction(ctx: Context) {
 fun Button.enableFunction(ctx: Context) {
     this.setBackgroundColor(ContextCompat.getColor(ctx, R.color.colorPrimaryDark))
     this.isEnabled = true
+}
+
+fun write(message: String?) {
+    message?.let {
+        Log.d("Logging", message)
+    }
 }
