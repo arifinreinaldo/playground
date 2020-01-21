@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".navigator.NavigatorActivity"></activity>
+        <activity android:name=".room.RoomActivity"></activity>
+        <activity android:name=".navigator.NavigatorActivity" />
         <activity android:name=".speechrecognition.SpeechRecogActivity" />
         <activity android:name=".exoplayer.ExoActivity" />
         <activity android:name=".recorder.RecordingActivity" />
