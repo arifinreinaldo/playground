@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
+import com.explore.playground.mvvm.VMActivity
 import com.explore.playground.navigator.NavigatorActivity
 import com.explore.playground.otptemplate.OTPActivity
 import com.explore.playground.recorder.RecordingActivity
@@ -46,6 +47,9 @@ class MenuActivity : AppCompatActivity() {
         }
         btRoom.setOnClickListener {
             startActivity(Intent(this, RoomActivity::class.java))
+        }
+        btVM.setOnClickListener {
+            startActivity(Intent(this, VMActivity::class.java))
         }
     }
 }
