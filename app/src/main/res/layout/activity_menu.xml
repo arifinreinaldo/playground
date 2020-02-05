@@ -47,9 +47,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Room" />
+
     <Button
         android:id="@+id/btVM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ViewModel" />
+
+    <Button
+        android:id="@+id/btPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PickerDialogs" />
 </LinearLayout>

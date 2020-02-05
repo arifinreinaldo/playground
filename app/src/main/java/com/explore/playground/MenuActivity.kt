@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.explore.playground.dialogpicker.PickerActivity
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
 import com.explore.playground.mvvm.VMActivity
@@ -50,6 +51,9 @@ class MenuActivity : AppCompatActivity() {
         }
         btVM.setOnClickListener {
             startActivity(Intent(this, VMActivity::class.java))
+        }
+        btPicker.setOnClickListener {
+            startActivity(Intent(this, PickerActivity::class.java))
         }
     }
 }
