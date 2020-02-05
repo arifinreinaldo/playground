@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.explore.playground.dialogpicker.PickerActivity
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
+import com.explore.playground.localization.LocalizationActivity
 import com.explore.playground.mvvm.VMActivity
 import com.explore.playground.navigator.NavigatorActivity
 import com.explore.playground.otptemplate.OTPActivity
@@ -54,6 +55,10 @@ class MenuActivity : AppCompatActivity() {
         }
         btPicker.setOnClickListener {
             startActivity(Intent(this, PickerActivity::class.java))
+        }
+        btLocalization.setOnClickListener {
+            startActivity(Intent(this, LocalizationActivity::class.java))
+
         }
     }
 }
