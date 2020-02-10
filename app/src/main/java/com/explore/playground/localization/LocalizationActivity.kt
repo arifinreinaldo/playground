@@ -16,6 +16,7 @@ class LocalizationActivity : BaseActivity() {
             } else if (lang.equals("in")) {
                 lang = ""
             }
+//            Lingver.getInstance().setLocale(this, lang)
             recreate()
         }
     }
