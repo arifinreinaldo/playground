@@ -2,8 +2,6 @@ package com.explore.playground.dialogpicker
 
 import com.explore.playground.R
 import com.explore.playground.base.BaseActivity
-import com.mensa.homecare.util.DatePickerFragment
-import com.mensa.homecare.util.TimePickerFragment
 import kotlinx.android.synthetic.main.activity_picker.*
 
 class PickerActivity : BaseActivity() {
