@@ -34,3 +34,53 @@ fun write(message: String?) {
         Log.d("Logging", message)
     }
 }
+
+fun simpleCountDown(
+    seconds: Int,
+    interval: Int,
+    finish: () -> Unit,
+    tick: () -> Unit
+): CountDownTimer {
+    return object : CountDownTimer(seconds.toMilis(), interval.toMilis()) {
+        override fun onFinish() {
+            this.cancel()
+            finish()
+        }
+
+        override fun onTick(millisUntilFinished: Long) {
+            tick()
+        }
+
+    }
+}
+
+fun Int.toMilis(): Long {
+    return (this * 1000).toLong()
+}
+
+
+fun ImageView.load(value: Any) {
+    Glide.with(this).load(value).into(this)
+}
+
+fun RecyclerView.init(ctx: Context, type: String = "linear") {
+    if (type.equals("linear", true)) {
+        this.layoutManager = LinearLayoutManager(ctx)
+    } else {
+    }
+}
+
+fun confirmDialog(
+    ctx: Context,
+    title: String,
+    positive: String,
+    negative: String,
+    posFun: () -> Unit
+): AlertDialog {
+    return AlertDialog.Builder(ctx).setTitle(title)
+        .setPositiveButton(positive) { dialog, which ->
+            posFun()
+        }
+        .setNegativeButton(negative) { dialog, which -> dialog.dismiss() }
+        .create()
+}
