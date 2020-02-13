@@ -19,7 +19,7 @@ open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
         items?.let {
             this.items.clear()
             this.items = it
-
+            notifyDataSetChanged()
         }
     }
 
