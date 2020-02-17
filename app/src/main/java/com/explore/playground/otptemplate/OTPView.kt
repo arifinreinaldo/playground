@@ -94,8 +94,7 @@ constructor(
         override fun afterTextChanged(s: Editable?) {
             s.let { et ->
                 if (et.toString().length == 0) {
-                    prev.requestFocus()
-
+//                    prev.requestFocus()
                 } else {
                     next?.let {
                         it.requestFocus()
