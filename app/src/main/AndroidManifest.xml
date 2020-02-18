@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".localization.LocalizationActivity"></activity>
+        <activity android:name=".fcm.FCMActivity"></activity>
+        <activity android:name=".localization.LocalizationActivity" />
         <activity android:name=".dialogpicker.PickerActivity" />
         <activity android:name=".mvvm.VMActivity" />
         <activity android:name=".room.RoomActivity" />
@@ -33,6 +34,14 @@
         <activity android:name=".generaladapter.DummyRecyclerActivity" />
         <activity android:name=".otptemplate.OTPActivity" />
         <activity android:name=".recorder.AudioRecordTest" />
+
+        <service
+            android:name=".utils.FireBaseUtil"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

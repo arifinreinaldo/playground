@@ -1,11 +1,15 @@
 package com.explore.playground.utils
 
+import android.app.AlertDialog
 import android.content.Context
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.explore.playground.R
 
 
@@ -59,9 +63,9 @@ fun Int.toMilis(): Long {
 }
 
 
-fun ImageView.load(value: Any) {
-    Glide.with(this).load(value).into(this)
-}
+//fun ImageView.load(value: Any) {
+//    Glide.with(this).load(value).into(this)
+//}
 
 fun RecyclerView.init(ctx: Context, type: String = "linear") {
     if (type.equals("linear", true)) {

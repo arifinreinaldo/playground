@@ -1,11 +1,11 @@
 package com.explore.playground
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import com.explore.playground.base.BaseActivity
 import com.explore.playground.dialogpicker.PickerActivity
 import com.explore.playground.exoplayer.ExoActivity
+import com.explore.playground.fcm.FCMActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
 import com.explore.playground.localization.LocalizationActivity
 import com.explore.playground.mvvm.VMActivity
@@ -16,12 +16,12 @@ import com.explore.playground.room.RoomActivity
 import com.explore.playground.speechrecognition.SpeechRecogActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity : BaseActivity() {
+    override fun setLayoutId(): Int {
+        return R.layout.activity_menu
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu)
-
+    override fun setInit() {
         btGeneral.setOnClickListener {
             val intent = Intent(this, DummyRecyclerActivity::class.java)
             startActivity(intent)
@@ -58,7 +58,9 @@ class MenuActivity : AppCompatActivity() {
         }
         btLocalization.setOnClickListener {
             startActivity(Intent(this, LocalizationActivity::class.java))
-
+        }
+        btFCM.setOnClickListener {
+            startActivity(Intent(this, FCMActivity::class.java))
         }
     }
 }

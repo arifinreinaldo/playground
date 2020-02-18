@@ -84,3 +84,5 @@ lint/tmp/
 .idea/
 
 gradle/
+
+app/google-services.json
