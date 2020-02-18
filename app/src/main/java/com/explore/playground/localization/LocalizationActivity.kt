@@ -2,6 +2,7 @@ package com.explore.playground.localization
 
 import com.explore.playground.R
 import com.explore.playground.base.BaseActivity
+import com.yariksoffice.lingver.Lingver
 import kotlinx.android.synthetic.main.activity_localization.*
 
 class LocalizationActivity : BaseActivity() {
@@ -16,7 +17,7 @@ class LocalizationActivity : BaseActivity() {
             } else if (lang.equals("in")) {
                 lang = ""
             }
-//            Lingver.getInstance().setLocale(this, lang)
+            Lingver.getInstance().setLocale(this, lang)
             recreate()
         }
     }
