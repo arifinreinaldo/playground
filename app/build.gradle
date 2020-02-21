@@ -40,7 +40,9 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString() // buat navigation component arguments
     }
 
-
+    packagingOptions {
+        exclude 'META-INF/*.kotlin_module'
+    }
 }
 
 dependencies {
@@ -63,6 +65,8 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+
+    //multiple languange implementation
     implementation "com.github.YarikSOffice:lingver:1.2.1"
 
     //room
@@ -87,4 +91,10 @@ dependencies {
 
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
+
+
+    implementation 'com.github.jkwiecien:EasyImage:3.0.3'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }

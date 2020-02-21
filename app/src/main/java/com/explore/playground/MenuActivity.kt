@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import com.explore.playground.base.BaseActivity
 import com.explore.playground.dialogpicker.PickerActivity
+import com.explore.playground.easycamera.CameraActivity
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.fcm.FCMActivity
 import com.explore.playground.generaladapter.DummyRecyclerActivity
@@ -61,6 +62,9 @@ class MenuActivity : BaseActivity() {
         }
         btFCM.setOnClickListener {
             startActivity(Intent(this, FCMActivity::class.java))
+        }
+        btCamera.setOnClickListener {
+            startActivity(Intent(this, CameraActivity::class.java))
         }
     }
 }

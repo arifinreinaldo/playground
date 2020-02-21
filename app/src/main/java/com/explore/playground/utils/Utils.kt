@@ -1,15 +1,22 @@
 package com.explore.playground.utils
 
+import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.ImageView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.explore.playground.R
 
 
@@ -21,6 +28,14 @@ fun hideKeyboard(context: Context?, view: View?) {
 fun showKeyboard(context: Context?, view: View?) {
     val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(view, 0)
+}
+
+fun View.hideView() {
+    this.visibility = View.GONE
+}
+
+fun View.showView() {
+    this.visibility = View.VISIBLE
 }
 
 fun Button.disableFunction(ctx: Context) {
@@ -63,9 +78,9 @@ fun Int.toMilis(): Long {
 }
 
 
-//fun ImageView.load(value: Any) {
-//    Glide.with(this).load(value).into(this)
-//}
+fun ImageView.load(value: Any) {
+    Glide.with(this).load(value).into(this)
+}
 
 fun RecyclerView.init(ctx: Context, type: String = "linear") {
     if (type.equals("linear", true)) {
@@ -88,3 +103,60 @@ fun confirmDialog(
         .setNegativeButton(negative) { dialog, which -> dialog.dismiss() }
         .create()
 }
+
+val INITIAL_PERMS = arrayOf(
+    Manifest.permission.INTERNET,
+    Manifest.permission.ACCESS_NETWORK_STATE,
+    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    Manifest.permission.ACCESS_COARSE_LOCATION,
+    Manifest.permission.ACCESS_FINE_LOCATION,
+    Manifest.permission.VIBRATE,
+    Manifest.permission.WAKE_LOCK,
+    Manifest.permission.CALL_PHONE,
+    Manifest.permission.CAMERA
+)
+
+fun Activity.hasPermissions(vararg permissions: String): Boolean {
+    var all_approved = true
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        for (permission in permissions) {
+            if (!hasPermission(permission)) {
+                all_approved = false
+            }
+        }
+    }
+    return all_approved
+}
+
+fun Activity.hasPermission(permission: String): Boolean {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                permission
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
+    }
+    return true
+}
+
+fun Activity.askPermission(
+    permission: String = "",
+    request: Int
+) {
+    if (!permission.isNullOrEmpty()) {
+        ActivityCompat.requestPermissions(this, arrayOf(permission), request)
+    }
+}
+
+fun Activity.askPermission(
+    permissions: Array<String>,
+    request: Int
+) {
+    if (permissions.isNotEmpty()) {
+        ActivityCompat.requestPermissions(this, permissions, request)
+    }
+}
+
+
