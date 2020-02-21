@@ -1,4 +1,4 @@
-package com.explore.playground.generaladapter.base
+package com.explore.playground.adapterAndRecyclerview.base
 
 import android.content.Context
 import android.view.LayoutInflater
