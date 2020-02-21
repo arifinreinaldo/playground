@@ -1,11 +1,11 @@
-package com.explore.playground.generaladapter
+package com.explore.playground.adapterAndRecyclerview
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import com.explore.playground.R
-import com.explore.playground.generaladapter.base.BaseRecylerAdapter
-import com.explore.playground.generaladapter.base.BaseViewHolder
+import com.explore.playground.adapterAndRecyclerview.base.BaseRecylerAdapter
+import com.explore.playground.adapterAndRecyclerview.base.BaseViewHolder
 import kotlinx.android.synthetic.main.adapter_list.view.*
 
 data class Dummy(

@@ -82,12 +82,17 @@ fun ImageView.load(value: Any) {
     Glide.with(this).load(value).into(this)
 }
 
-fun RecyclerView.init(ctx: Context, type: String = "linear") {
+fun RecyclerView.init(ctx: Context, type: String = "linear", horizontal: Boolean = false) {
     if (type.equals("linear", true)) {
-        this.layoutManager = LinearLayoutManager(ctx)
+        if (horizontal) {
+            this.layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
+        } else {
+            this.layoutManager = LinearLayoutManager(ctx)
+        }
     } else {
     }
 }
+
 
 fun confirmDialog(
     ctx: Context,

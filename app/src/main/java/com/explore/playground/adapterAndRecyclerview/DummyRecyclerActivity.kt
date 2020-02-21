@@ -1,4 +1,4 @@
-package com.explore.playground.generaladapter
+package com.explore.playground.adapterAndRecyclerview
 
 import android.content.Context
 import android.os.Bundle

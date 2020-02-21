@@ -2,12 +2,13 @@ package com.explore.playground
 
 import android.content.Intent
 import android.util.Log
+import com.explore.playground.adapterAndRecyclerview.DummyRecyclerActivity
 import com.explore.playground.base.BaseActivity
+import com.explore.playground.bottomsheetdialog.BottomSheetActivity
 import com.explore.playground.dialogpicker.PickerActivity
 import com.explore.playground.easycamera.CameraActivity
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.fcm.FCMActivity
-import com.explore.playground.generaladapter.DummyRecyclerActivity
 import com.explore.playground.localization.LocalizationActivity
 import com.explore.playground.mvvm.VMActivity
 import com.explore.playground.navigator.NavigatorActivity
@@ -65,6 +66,10 @@ class MenuActivity : BaseActivity() {
         }
         btCamera.setOnClickListener {
             startActivity(Intent(this, CameraActivity::class.java))
+        }
+        btBottomSheet.setOnClickListener {
+            startActivity(Intent(this, BottomSheetActivity::class.java))
+
         }
     }
 }
