@@ -8,10 +8,8 @@ import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DataSpec
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.HttpDataSource
-import com.google.android.exoplayer2.upstream.RawResourceDataSource
 import com.google.android.exoplayer2.util.Log
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_exo.*
@@ -20,12 +18,12 @@ import java.io.File
 class ExoActivity : AppCompatActivity() {
     val sourceURL: String = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
     private lateinit var fileSource: String
-    fun getFromRawFile(): ProgressiveMediaSource {
-        val dataSource = DefaultDataSourceFactory(this, Util.getUserAgent(this, "EXO"))
-        val rawSource = RawResourceDataSource(this)
-        rawSource.open(DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.undergroundstars)))
-        return ProgressiveMediaSource.Factory(dataSource).createMediaSource(rawSource.uri)
-    }
+//    fun getFromRawFile(): ProgressiveMediaSource {
+//        val dataSource = DefaultDataSourceFactory(this, Util.getUserAgent(this, "EXO"))
+//        val rawSource = RawResourceDataSource(this)
+//        rawSource.open(DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.undergroundstars)))
+//        return ProgressiveMediaSource.Factory(dataSource).createMediaSource(rawSource.uri)
+//    }
 
     fun getFromURL(url: String): ProgressiveMediaSource {
         val dataSource = DefaultDataSourceFactory(this, Util.getUserAgent(this, "EXO"))

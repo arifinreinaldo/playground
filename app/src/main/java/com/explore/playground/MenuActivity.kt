@@ -9,6 +9,7 @@ import com.explore.playground.dialogpicker.PickerActivity
 import com.explore.playground.easycamera.CameraActivity
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.fcm.FCMActivity
+import com.explore.playground.filepicker.FilePickerActivity
 import com.explore.playground.localization.LocalizationActivity
 import com.explore.playground.mvvm.VMActivity
 import com.explore.playground.navigator.NavigatorActivity
@@ -69,7 +70,9 @@ class MenuActivity : BaseActivity() {
         }
         btBottomSheet.setOnClickListener {
             startActivity(Intent(this, BottomSheetActivity::class.java))
-
+        }
+        btFilePicker.setOnClickListener {
+            startActivity(Intent(this, FilePickerActivity::class.java))
         }
     }
 }

@@ -18,8 +18,9 @@ class DatePickerFragment(val act: Activity) : DialogFragment(), DatePickerDialog
     private lateinit var formatter: SimpleDateFormat
     private val format = "dd-MMM-yyyy"
     private lateinit var cal: Calendar
+    private var minDate: Long = -1
 
-    fun showDate(editText: EditText, fragment: FragmentManager?, tag: String) {
+    fun showDate(editText: EditText, fragment: FragmentManager?, tag: String, minimum: Long = -1) {
         formatter = SimpleDateFormat(format)
         cal = Calendar.getInstance()
         if (!this.isAdded) {
@@ -27,6 +28,9 @@ class DatePickerFragment(val act: Activity) : DialogFragment(), DatePickerDialog
             fragment?.let {
                 show(fragment, tag)
             }
+        }
+        if (minimum != (-1).toLong()) {
+            minDate = minimum
         }
     }
 
@@ -52,7 +56,11 @@ class DatePickerFragment(val act: Activity) : DialogFragment(), DatePickerDialog
             month = cal.get(Calendar.MONTH)
             day = cal.get(Calendar.DAY_OF_MONTH)
         }
-        return DatePickerDialog(act, this, year, month, day)
+        val datePickerDialog = DatePickerDialog(act, this, year, month, day)
+        if (minDate != (-1).toLong()) {
+            datePickerDialog.datePicker.minDate = minDate
+        }
+        return datePickerDialog
 
     }
 }

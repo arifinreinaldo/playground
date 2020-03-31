@@ -6,81 +6,99 @@
     android:orientation="vertical"
     tools:context=".MenuActivity">
 
-    <Button
-        android:id="@+id/btGeneral"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="General Recycler" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btOTP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OTP Template" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Record" />
+            <Button
+                android:id="@+id/btGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General Recycler" />
 
-    <Button
-        android:id="@+id/btExo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EXO" />
+            <Button
+                android:id="@+id/btOTP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OTP Template" />
 
-    <Button
-        android:id="@+id/btRecog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recognition" />
+            <Button
+                android:id="@+id/btRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Record" />
 
-    <Button
-        android:id="@+id/btNav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Navigation" />
+            <Button
+                android:id="@+id/btExo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EXO" />
 
-    <Button
-        android:id="@+id/btRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Room" />
+            <Button
+                android:id="@+id/btRecog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recognition" />
 
-    <Button
-        android:id="@+id/btVM"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ViewModel" />
+            <Button
+                android:id="@+id/btNav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Navigation" />
 
-    <Button
-        android:id="@+id/btPicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PickerDialogs" />
+            <Button
+                android:id="@+id/btRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Room" />
 
-    <Button
-        android:id="@+id/btLocalization"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Localization" />
+            <Button
+                android:id="@+id/btVM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ViewModel" />
 
-    <Button
-        android:id="@+id/btFCM"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FCM" />
+            <Button
+                android:id="@+id/btPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PickerDialogs"
+                android:visibility="gone" />
 
-    <Button
-        android:id="@+id/btCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EasyImage" />
+            <Button
+                android:id="@+id/btLocalization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Localization" />
 
-    <Button
-        android:id="@+id/btBottomSheet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bottom SHeet" />
+            <Button
+                android:id="@+id/btFCM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FCM" />
+
+            <Button
+                android:id="@+id/btCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EasyImage" />
+
+            <Button
+                android:id="@+id/btBottomSheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bottom SHeet" />
+
+            <Button
+                android:id="@+id/btFilePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File Picker" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
