@@ -12,6 +12,7 @@ import com.explore.playground.fcm.FCMActivity
 import com.explore.playground.filepicker.FilePickerActivity
 import com.explore.playground.localization.LocalizationActivity
 import com.explore.playground.mvvm.VMActivity
+import com.explore.playground.mvvmnavfan.CompositeActivity
 import com.explore.playground.navigator.NavigatorActivity
 import com.explore.playground.otptemplate.OTPActivity
 import com.explore.playground.recorder.RecordingActivity
@@ -73,6 +74,9 @@ class MenuActivity : BaseActivity() {
         }
         btFilePicker.setOnClickListener {
             startActivity(Intent(this, FilePickerActivity::class.java))
+        }
+        btmvvmnavfan.setOnClickListener {
+            startActivity(Intent(this, CompositeActivity::class.java))
         }
     }
 }

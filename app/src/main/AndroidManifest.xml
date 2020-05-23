@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- request legacy external storage untuk android 10 buat baca PDF-->
+
     <application
         android:name=".base.BaseApp"
         android:allowBackup="true"
@@ -24,6 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".mvvm.VMDetail"></activity>
+
         <provider
             android:name=".GenericProvider"
             android:authorities="${applicationId}.provider"
@@ -34,7 +36,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".filepicker.FilePickerActivity"></activity>
+        <activity android:name=".filepicker.FilePickerActivity" />
         <activity android:name=".bottomsheetdialog.BottomSheetActivity" />
         <activity android:name=".easycamera.CameraActivity" />
         <activity android:name=".fcm.FCMActivity" />
@@ -46,6 +48,7 @@
         <activity android:name=".speechrecognition.SpeechRecogActivity" />
         <activity android:name=".exoplayer.ExoActivity" />
         <activity android:name=".recorder.RecordingActivity" />
+        <activity android:name=".mvvmnavfan.CompositeActivity" />
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -15,10 +15,17 @@ class AnotherFragment : BaseFragment() {
         return R.layout.fragment_another
     }
 
-    override fun setInit() {
+    override fun setInitialAsset() {
         val args: AnotherFragmentArgs by navArgs()
         val flow = args.id
         write(flow)
+    }
+
+    override fun setListener() {
+
+    }
+
+    override fun removeListener() {
     }
 
 }

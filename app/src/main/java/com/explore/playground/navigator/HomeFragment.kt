@@ -11,7 +11,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * A simple [Fragment] subclass.
  */
 class HomeFragment : BaseFragment() {
-    override fun setInit() {
+    override fun setLayoutId(): Int {
+        return R.layout.fragment_home
+    }
+
+    override fun setInitialAsset() {
         btPencet.setOnClickListener {
             val values = "1"
             val action =
@@ -20,7 +24,11 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun setLayoutId(): Int {
-        return R.layout.fragment_home
+    override fun setListener() {
+
+    }
+
+    override fun removeListener() {
+        
     }
 }

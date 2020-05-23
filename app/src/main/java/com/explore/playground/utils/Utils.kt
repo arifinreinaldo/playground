@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.explore.playground.R
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 
 fun hideKeyboard(context: Context?, view: View?) {
@@ -164,4 +166,8 @@ fun Activity.askPermission(
     }
 }
 
+
+fun getMoshi(): Moshi {
+    return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+}
 

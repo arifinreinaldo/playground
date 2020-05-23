@@ -98,4 +98,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.github.HBiSoft:PickiT:0.1.10'
+
+
+    //networking libraries
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
 }

@@ -99,6 +99,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="File Picker" />
+            <Button
+                android:id="@+id/btmvvmnavfan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MVVM + FAN + JPack" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
