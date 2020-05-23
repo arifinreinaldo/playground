@@ -44,7 +44,7 @@ object Repository {
             path = next
         }
         AndroidNetworking.get(path)
-//            .addQueryParameter("limit", "50")
+//            .addQueryParameter("limit", "10")
             .setPriority(Priority.HIGH)
             .build()
             .getAsString(object : StringRequestListener {

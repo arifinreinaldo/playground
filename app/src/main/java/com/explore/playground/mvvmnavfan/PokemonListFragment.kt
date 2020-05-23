@@ -26,7 +26,12 @@ class PokemonListFragment : BaseFragment() {
         vm = ViewModelProvider(this).get(PokemonVM::class.java)
         rvPokemon.init(ctx)
         adapter = PokemonAdapter(ctx)
-        fetchData()
+        adapter.addAllItem(vm.oldData)
+        vm.data.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                adapter.addAllItem(it.toMutableList())
+            }
+        })
     }
 
     override fun setListener() {
@@ -41,25 +46,19 @@ class PokemonListFragment : BaseFragment() {
         }
         rvPokemon.adapter = adapter
         scrollListener = scrollListener {
-            nextData()
+            vm.getPokemon()
         }
         rvPokemon.addOnScrollListener(scrollListener)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        vm.oldData.clear()
+        vm.oldData.addAll(adapter.getItem())
+    }
+
     override fun removeListener() {
-
+        vm.data.removeObservers(viewLifecycleOwner)
     }
 
-    fun fetchData() {
-        adapter.clear()
-        vm.getPokemon().observe(viewLifecycleOwner, Observer {
-            adapter.addAllItem(it.toMutableList())
-        })
-    }
-
-    fun nextData() {
-        vm.getPokemon().observe(viewLifecycleOwner, Observer {
-            adapter.addAllItem(it.toMutableList())
-        })
-    }
 }
