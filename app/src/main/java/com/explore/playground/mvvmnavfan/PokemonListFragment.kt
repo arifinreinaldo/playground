@@ -28,7 +28,7 @@ class PokemonListFragment : BaseFragment() {
         adapter = PokemonAdapter(ctx)
         adapter.addAllItem(vm.oldData)
         vm.data.observe(viewLifecycleOwner, Observer { event ->
-            event.getContentIfNotHandled()?.let {
+            event.showOnce()?.let {
                 adapter.addAllItem(it.toMutableList())
             }
         })

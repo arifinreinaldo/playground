@@ -25,4 +25,14 @@
         android:hint="taima picka"
         android:inputType="none"
         android:textIsSelectable="false" />
+
+    <EditText
+        android:id="@+id/etTime2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="taima picka with interval"
+        android:inputType="none"
+        android:textIsSelectable="false" />
 </LinearLayout>

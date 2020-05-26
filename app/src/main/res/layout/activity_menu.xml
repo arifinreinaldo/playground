@@ -67,8 +67,7 @@
                 android:id="@+id/btPicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PickerDialogs"
-                android:visibility="gone" />
+                android:text="PickerDialogs" />
 
             <Button
                 android:id="@+id/btLocalization"
@@ -99,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="File Picker" />
+
             <Button
                 android:id="@+id/btmvvmnavfan"
                 android:layout_width="wrap_content"

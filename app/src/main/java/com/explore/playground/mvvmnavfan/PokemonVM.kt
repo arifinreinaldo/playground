@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.explore.playground.repository.Repository
 import com.explore.playground.repository.model.PokemonListResponse
 import com.explore.playground.repository.model.PokemonURL
-import com.explore.playground.utils.Event
+import com.explore.playground.utils.LiveOnce
 import com.explore.playground.utils.getMoshi
 import com.explore.playground.utils.write
 
@@ -14,7 +14,7 @@ class PokemonVM : ViewModel() {
     var score: Int = 0
     var isLoading = false
     private var path = ""
-    var data = MutableLiveData<Event<List<PokemonURL>>>()
+    var data = MutableLiveData<LiveOnce<List<PokemonURL>>>()
     var oldData = mutableListOf<PokemonURL>()
 
     init {
@@ -33,7 +33,7 @@ class PokemonVM : ViewModel() {
                 result?.let {
                     if (it.count > 0) {
                         it.results?.let { result ->
-                            data.value = Event(result)
+                            data.value = LiveOnce(result)
                         }
                     } else {
                         //nodata
