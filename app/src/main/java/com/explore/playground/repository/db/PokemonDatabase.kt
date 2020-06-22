@@ -1,10 +1,10 @@
-package com.explore.playground.repository
+package com.explore.playground.repository.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.explore.playground.repository.daos.PokemonURLDao
+import com.explore.playground.repository.db.daos.PokemonURLDao
 import com.explore.playground.repository.model.PokemonURL
 
 @Database(entities = [PokemonURL::class], version = 1, exportSchema = true)
@@ -16,7 +16,8 @@ abstract class PokemonDatabase : RoomDatabase() {
         var INSTANCE: PokemonDatabase? = null
 
         fun getDatabase(ctx: Context): PokemonDatabase {
-            val tempInstance = INSTANCE
+            val tempInstance =
+                INSTANCE
             tempInstance?.let {
                 return it
             }

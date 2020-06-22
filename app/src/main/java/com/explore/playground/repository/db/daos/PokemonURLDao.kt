@@ -1,4 +1,4 @@
-package com.explore.playground.repository.daos
+package com.explore.playground.repository.db.daos
 
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

@@ -3,6 +3,7 @@ package com.explore.playground.mvvmnavfan
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.explore.playground.repository.Repository
+import com.explore.playground.repository.model.PokemonDetailResponse
 import com.explore.playground.repository.model.PokemonListResponse
 import com.explore.playground.repository.model.PokemonURL
 import com.explore.playground.utils.LiveOnce
@@ -16,6 +17,7 @@ class PokemonVM : ViewModel() {
     private var path = ""
     var data = MutableLiveData<LiveOnce<List<PokemonURL>>>()
     var oldData = mutableListOf<PokemonURL>()
+    var detail = MutableLiveData<LiveOnce<PokemonDetailResponse>>()
 
     init {
         getPokemon()
@@ -53,6 +55,12 @@ class PokemonVM : ViewModel() {
     fun getPokemonDetail(url: String) {
         Repository.getPokemonDetail(url, { success ->
             write(success.toString())
+            val jsonAdapter =
+                getMoshi().adapter<PokemonDetailResponse>(PokemonDetailResponse::class.java)
+            val result = jsonAdapter.fromJson(success)
+            result?.let {
+                detail.value = LiveOnce(it)
+            }
         }, { error ->
             write(error.toString())
         })

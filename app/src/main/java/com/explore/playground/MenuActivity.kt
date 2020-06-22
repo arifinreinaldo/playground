@@ -51,9 +51,6 @@ class MenuActivity : BaseActivity() {
             startActivity(Intent(this, NavigatorActivity::class.java))
             Log.d("Manifest", "")
         }
-        btRoom.setOnClickListener {
-            startActivity(Intent(this, RoomActivity::class.java))
-        }
         btVM.setOnClickListener {
             startActivity(Intent(this, VMActivity::class.java))
         }
