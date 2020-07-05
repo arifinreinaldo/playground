@@ -10,12 +10,22 @@
         android:layout_height="wrap_content"
         android:text="pokemon list" />
 
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="isloading"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/tvLoading"
         android:layout_below="@id/tvTitle"
         android:layout_marginTop="10dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+
 </RelativeLayout>

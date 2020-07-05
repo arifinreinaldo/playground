@@ -16,7 +16,6 @@ import com.explore.playground.mvvmnavfan.CompositeActivity
 import com.explore.playground.navigator.NavigatorActivity
 import com.explore.playground.otptemplate.OTPActivity
 import com.explore.playground.recorder.RecordingActivity
-import com.explore.playground.room.RoomActivity
 import com.explore.playground.speechrecognition.SpeechRecogActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 

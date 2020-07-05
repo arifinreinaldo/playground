@@ -16,7 +16,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.explore.playground.R
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -80,8 +82,13 @@ fun Int.toMilis(): Long {
 }
 
 
-fun ImageView.load(value: Any) {
-    Glide.with(this).load(value).into(this)
+fun ImageView.load(value: Any, ctx: Context) {
+    val options = RequestOptions().placeholder(CircularProgressDrawable(ctx).apply {
+        strokeWidth = 8f
+        centerRadius = 2f
+        start()
+    }).error(R.drawable.bg_round)
+    Glide.with(this).setDefaultRequestOptions(options).load(value).into(this)
 }
 
 fun RecyclerView.init(ctx: Context, type: String = "linear", horizontal: Boolean = false) {

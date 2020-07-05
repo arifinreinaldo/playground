@@ -17,15 +17,26 @@ class PokemonAdapter(ctx: Context) :
 
     interface Listener {
         fun onItemClicked(item: PokemonURL)
+        fun onSpriteClicked(item: PokemonURL)
+        fun isCheck(item: PokemonURL): Boolean
     }
 
-    class ViewHolder(itemView: View, val listener: Listener) :
+    class ViewHolder(itemView: View, private val listener: Listener) :
         BaseViewHolder<PokemonURL>(itemView) {
         override fun onBind(item: PokemonURL) {
             itemView.llRow.setOnClickListener {
-                listener?.onItemClicked(item)
+                listener.onItemClicked(item)
             }
             itemView.tvPokemon.text = item.name
+            itemView.ivSprite.setOnClickListener {
+                listener.onSpriteClicked(item)
+            }
+            if (listener.isCheck(item)) {
+                itemView.ivSprite.setImageResource(R.drawable.ic_heart)
+            } else {
+                itemView.ivSprite.setImageResource(R.drawable.ic_heart_empty)
+            }
+
         }
 
     }

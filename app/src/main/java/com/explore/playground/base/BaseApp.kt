@@ -1,6 +1,7 @@
 package com.explore.playground.base
 
 import androidx.multidex.MultiDexApplication
+import com.explore.playground.repository.Repository
 import com.explore.playground.utils.LocalValue
 import com.yariksoffice.lingver.Lingver
 import java.util.*
@@ -11,5 +12,6 @@ class BaseApp : MultiDexApplication() {
         Lingver.init(this, Locale.getDefault())
         //Ganti bahasa
         LocalValue.init(this)
+        Repository.init(this)
     }
 }

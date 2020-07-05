@@ -1,18 +1,23 @@
 package com.explore.playground.repository.db.daos
 
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.explore.playground.repository.model.PokemonURL
-import com.explore.playground.utils.LiveOnce
 
+@Dao
 interface PokemonURLDao {
     @Query("SELECT * FROM pokemon_list")
-    fun getListPokemon(): LiveOnce<List<PokemonURL>>
+    suspend fun getListPokemon(): List<PokemonURL>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(pokemon: PokemonURL)
+    suspend fun insert(pokemon: PokemonURL)
 
     @Query("DELETE FROM pokemon_list")
     fun delete()
+
+    @Delete
+    suspend fun deleteData(pokemon: PokemonURL)
+
+    @Query("SELECT * FROM pokemon_list WHERE url = :url")
+    suspend fun getPokemonbyID(url: String): PokemonURL?
+
 }

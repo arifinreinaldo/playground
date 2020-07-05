@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.explore.playground.R
 import com.explore.playground.base.BaseFragment
 import com.explore.playground.repository.model.PokemonURL
-import com.explore.playground.utils.EndlessScrollUtil
-import com.explore.playground.utils.init
-import com.explore.playground.utils.scrollListener
+import com.explore.playground.utils.*
 import kotlinx.android.synthetic.main.fragment_pokemon_list.*
 
 /**
@@ -23,6 +21,7 @@ class PokemonListFragment : BaseFragment() {
     }
 
     override fun setInitialAsset() {
+
         vm = ViewModelProvider(this).get(PokemonVM::class.java)
         rvPokemon.init(ctx)
         adapter = PokemonAdapter(ctx)
@@ -30,6 +29,13 @@ class PokemonListFragment : BaseFragment() {
         vm.data.observe(viewLifecycleOwner, Observer { event ->
             event.showOnce()?.let {
                 adapter.addAllItem(it.toMutableList())
+            }
+        })
+        vm.isLoading.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                tvLoading.showView()
+            } else {
+                tvLoading.hideView()
             }
         })
     }
@@ -43,10 +49,18 @@ class PokemonListFragment : BaseFragment() {
                     )
                 )
             }
+
+            override fun onSpriteClicked(item: PokemonURL) {
+                
+            }
+
+            override fun isCheck(item: PokemonURL): Boolean {
+                return vm.checkPokemon(item)
+            }
         }
         rvPokemon.adapter = adapter
         scrollListener = scrollListener {
-            vm.getPokemon()
+            vm.fetchPokemon()
         }
         rvPokemon.addOnScrollListener(scrollListener)
     }

@@ -22,16 +22,17 @@ class PokemonDetailFragment : BaseFragment() {
         vm = ViewModelProvider(this).get(PokemonVM::class.java)
         val args: PokemonDetailFragmentArgs by navArgs()
         vm.getPokemonDetail(args.url)
-        vm.detail.observe(viewLifecycleOwner, Observer {
+        vm.detail.observe(viewLifecycleOwner, Observer { it ->
             it.showOnce()?.let { detail ->
                 detail.sprites.front_default?.let { image ->
-                    ivSprite.load(image)
+                    ivSprite.load(image, this.ctx)
                 }
                 detail.name?.let {
                     tvTitle.text = it.capitalize()
                 }
             }
         })
+        vm.getPokemons()
     }
 
     override fun setListener() {
