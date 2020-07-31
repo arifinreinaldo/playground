@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_pokemon_list" >
         <action
             android:id="@+id/action_pokemonListFragment_to_pokemonDetailFragment"
-            app:destination="@id/pokemonDetailFragment" />
+            app:destination="@id/pokemonDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/pokemonDetailFragment"

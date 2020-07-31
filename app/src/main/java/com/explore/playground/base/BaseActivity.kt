@@ -17,11 +17,33 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun setLayoutId(): Int
     abstract fun setInit()
     override fun onCreate(savedInstanceState: Bundle?) {
+        //one time initialization
         super.onCreate(savedInstanceState)
         setContentView(setLayoutId())
         setDefautSetting()
         setInit()
     }
+
+    override fun onStart() {
+        super.onStart()
+        //visible UI
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //activity interactive state
+    }
+
+    override fun onPause() {
+        super.onPause()
+        
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //save data here
+    }
+
 
     fun setDefautSetting() {
         //specified default setting for your apps

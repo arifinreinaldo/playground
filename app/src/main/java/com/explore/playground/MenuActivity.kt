@@ -16,6 +16,7 @@ import com.explore.playground.mvvmnavfan.CompositeActivity
 import com.explore.playground.navigator.NavigatorActivity
 import com.explore.playground.otptemplate.OTPActivity
 import com.explore.playground.recorder.RecordingActivity
+import com.explore.playground.sociallogin.SocialLoginActivity
 import com.explore.playground.speechrecognition.SpeechRecogActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 
@@ -73,6 +74,9 @@ class MenuActivity : BaseActivity() {
         }
         btmvvmnavfan.setOnClickListener {
             startActivity(Intent(this, CompositeActivity::class.java))
+        }
+        btSocialLogin.setOnClickListener {
+            startActivity(Intent(this, SocialLoginActivity::class.java))
         }
     }
 }

@@ -7,6 +7,7 @@ import com.explore.playground.R
 import com.explore.playground.base.BaseFragment
 import com.explore.playground.repository.model.PokemonURL
 import com.explore.playground.utils.*
+import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_pokemon_list.*
 
 /**
@@ -21,6 +22,7 @@ class PokemonListFragment : BaseFragment() {
     }
 
     override fun setInitialAsset() {
+        exitTransition = Hold()
 
         vm = ViewModelProvider(this).get(PokemonVM::class.java)
         rvPokemon.init(ctx)
@@ -51,7 +53,7 @@ class PokemonListFragment : BaseFragment() {
             }
 
             override fun onSpriteClicked(item: PokemonURL) {
-                
+
             }
 
             override fun isCheck(item: PokemonURL): Boolean {

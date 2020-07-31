@@ -12,6 +12,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.explore.playground.utils.hideKeyboard
 
@@ -99,7 +100,11 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun startFragment(dest: NavDirections) {
-        findNavController().navigate(dest)
+        view?.let {
+            val extras = FragmentNavigatorExtras(it to "shared_animation")
+            findNavController().navigate(dest, extras)
+        }
+//        findNavController().navigate(dest)
     }
 
     fun startFragment(dest: Int) {
