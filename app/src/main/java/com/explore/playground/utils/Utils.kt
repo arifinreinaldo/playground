@@ -178,3 +178,94 @@ fun getMoshi(): Moshi {
     return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 }
 
+
+//fun solutions(A: IntArray): Int {
+//    val N: Int = A.size
+////    val set: Set<Int> = hashMapOf<Int,Int>()
+//    val set = hashMapOf<Int, Int>()
+//    for (a in A) {
+//        if (a > 0) {
+//            set[a] = a
+//        }
+//    }
+//    for (i in 1..N + 1) {
+//        if (!set.contains(i)) {
+//            return i
+//        }
+//    }
+//    return 0
+//}
+//
+//
+//fun solution(A: IntArray): Int {
+//    var array = hashMapOf<Int, Int>()
+//    A.forEach {
+//        if (it > 0) {
+//            array[it] = it
+//        }
+//    }
+//    var idx = 0
+//    var found: Boolean
+//    do {
+//        idx++
+//        found = array.contains(idx)
+//    } while (!found)
+//    return idx
+//}
+//
+//fun solution(S: String): Int {
+//    var total = 0
+//    if (S.isNotEmpty()) {
+//        var a = S.replace("b", "").length
+//        var b = S.replace("a", "").length
+//        if (a % 3 == 0) {
+//            if (a == 0) {
+//                if (b > 2) {
+//                    for (i in 1..b - 2) {
+//                        total += i
+//                    }
+//                    return total
+//                } else {
+//                    return 0
+//                }
+//            } else {
+//                if (b == 0) {
+//                    return 0
+//                } else {
+//                    var asplit = a / 3
+//                    var split = ""
+//                    for (i in 1..asplit) {
+//                        split += "a"
+//                    }
+//                    val splits = S.split(split)
+//
+//                    return (splits[1].length + 1) * (splits[2].length + 1)
+//                }
+//            }
+//        } else if (a % 3 != 0) {
+//            return 0
+//        }
+//    } else {
+//        return 0
+//    }
+//    return 0
+//}
+//
+//fun solus(S: String, K: Int) {
+//    var map = hashMapOf<String, Int>()
+//    var arr = mutableListOf<String>()
+//    S.forEach { char ->
+//        map.get(char)?.let { count ->
+//            map.put(char.toString(), count + 1)
+//        } ?: run {
+//            map.put(char.toString(), 1)
+//        }
+//        arr.add(char)
+//        var print = ""
+//        arr.distinct()
+//        map.forEach { pointer ->
+//            print += pointer.component1()
+//        }
+//    }
+//
+//}
