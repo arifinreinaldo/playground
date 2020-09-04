@@ -93,7 +93,7 @@ fun birthdayCakeCandles(ar: Array<Int>): Int {
     ar.sortDescending()
     var max = 0
     var count = 0
-    for (x in 0..ar.size) {
+    for (x in 0..(ar.size - 1)) {
         if (x == 0) {
             count++
             max = ar[x]
