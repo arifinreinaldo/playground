@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -177,6 +178,9 @@ fun Activity.askPermission(
 fun getMoshi(): Moshi {
     return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 }
+
+val EditText.value
+    get() = text?.toString() ?: ""
 
 
 //fun solutions(A: IntArray): Int {

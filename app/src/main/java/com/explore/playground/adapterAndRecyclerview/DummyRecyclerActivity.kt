@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.explore.playground.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_dummy_recycler.*
@@ -30,6 +32,28 @@ class DummyRecyclerActivity : AppCompatActivity() {
                 Toast.makeText(ctx, "Clicked ${item.desc}", Toast.LENGTH_SHORT).show()
             }
         }
+        val touch = ItemTouchHelper(object : ItemTouchHelper.Callback() {
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ): Int {
+                TODO("Not yet implemented")
+            }
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                TODO("Not yet implemented")
+            }
+        })
+        touch.attachToRecyclerView(rvGeneral)
+
         val sheet = BottomSheetBehavior.from(llFilter)
         sheet.state = BottomSheetBehavior.STATE_HIDDEN
         btFilter.setOnClickListener {

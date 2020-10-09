@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".sociallogin.SocialLoginActivity"></activity>
+        <activity android:name=".scrollAlpha.ScrollAlphaActivity"></activity>
+        <activity android:name=".sociallogin.SocialLoginActivity" />
 
         <provider
             android:name=".GenericProvider"

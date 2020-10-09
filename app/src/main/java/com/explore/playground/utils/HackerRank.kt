@@ -1,6 +1,7 @@
 package com.explore.playground.utils
 
 import java.text.DecimalFormat
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 
@@ -126,3 +127,210 @@ fun timeConversion(s: String): String {
     return str
 }
 
+// Complete the countApplesAndOranges function below.
+fun countApplesAndOranges(
+    s: Int,
+    t: Int,
+    a: Int,
+    b: Int,
+    apples: Array<Int>,
+    oranges: Array<Int>
+): Unit {
+    var homeApple = 0
+    var homeOrange = 0
+    apples.forEach {
+        if ((it + a) >= s && (it + a) <= t) homeApple++
+    }
+    oranges.forEach {
+        if ((it + b) <= t && (it + b) >= s) homeOrange++
+    }
+    print("$homeApple \n$homeOrange")
+}
+
+
+// Complete the kangaroo function below.
+fun kangaroo(x1: Int, v1: Int, x2: Int, v2: Int): String {
+    return if (x1 == x2) {
+        if (v1 == v2) "YES" else "NO"
+    } else {
+        if (x1 < x2) {
+            if (v1 <= v2) "NO" else {
+                if ((x2 - x1) % (v1 - v2) == 0) "YES" else "NO"
+            }
+        } else {
+            if (v2 <= v1) "NO" else {
+                if ((x1 - x2) % (v2 - v1) == 0) "YES" else "NO"
+            }
+        }
+    }
+}
+
+//although brute still faster (for number with small limit faster, for number with higher limit goes for LCM GCM)
+fun getTotalXBrute(a: Array<Int>, b: Array<Int>): Int {
+
+
+    var list = mutableListOf<Int>()
+    a.sort()
+    b.sort()
+
+    val largestA = a[a.size - 1]
+    val largestB = b[b.size - 1]
+    var isOkay = true
+    var bees = arrayListOf<Int>()
+    bees.addAll(b)
+    bees.add(largestA)
+
+    for (bee in largestA..largestB) {
+        isOkay = true
+        a.forEach { ay ->
+            if (bee % ay != 0) isOkay = false
+        }
+        b.forEach { bay ->
+            if (bay % bee != 0) isOkay = false
+        }
+        if (isOkay) list.add(bee)
+    }
+    return list.size
+}
+
+//a.k.a KPK
+fun getLCM(a: Array<Int>): Map<Int, Int> {
+    var lcm = hashMapOf<Int, Int>()
+    a.distinct().forEach {
+        var number = it
+        var divider = 1
+        var stop = false
+        var list = mutableListOf<Int>()
+
+        //LCM a.k.a KPK
+        while (number != 1) {
+            divider = 1
+            stop = false
+            do {
+                divider++
+                if (number % divider == 0) {
+                    stop = true
+                    number /= divider
+                    list.add(divider)
+                }
+            } while (!stop)
+        }
+        if (list.isEmpty()) {
+            list.add(1)
+        }
+        if (lcm.isEmpty()) {
+            lcm.putAll(list.groupingBy { it }.eachCount())
+        } else {
+            list.groupingBy { it }.eachCount() //kpk result of the number
+                .forEach {
+                    lcm.get(it.key)?.let { rst ->
+                        if (rst < it.value) {
+                            lcm.put(it.key, it.value)
+                        }
+                    } ?: run {
+                        lcm.put(it.key, it.value)
+                    }
+                }//concatenate to kpk result
+        }
+    }
+    return lcm
+}
+
+
+//a.k.a FPB
+fun getGCM(a: Array<Int>): Map<Int, Int> {
+    var gcm = hashMapOf<Int, Int>()
+    var listFactorial = mutableListOf<Int>()
+    var data = mutableListOf<Map<Int, Int>>()
+    a.distinct().forEach {
+        var number = it
+        var divider = 1
+        var stop = false
+        var list = mutableListOf<Int>()
+
+        //LCM a.k.a KPK
+        while (number != 1) {
+            divider = 1
+            stop = false
+            do {
+                divider++
+                if (number % divider == 0) {
+                    stop = true
+                    number /= divider
+                    list.add(divider)
+                }
+            } while (!stop)
+        }
+        if (list.isEmpty()) {
+            list.add(1)
+        }
+        if (gcm.isEmpty()) {
+            gcm.putAll(list.groupingBy { it }.eachCount())
+        } else {
+            list.groupingBy { it }.eachCount() //kpk result of the number
+                .forEach {
+                    gcm.get(it.key)?.let { rst ->
+                        if (rst > it.value) {
+                            gcm.put(it.key, it.value)
+                        }
+                    } ?: run {
+                        gcm.put(it.key, it.value)
+                    }
+                }
+        }
+        listFactorial.addAll(list.distinct())
+    }
+    var mapFactorial = listFactorial.groupingBy { it }.eachCount()
+    val distinctFactorial = mutableListOf<Int>()
+    mapFactorial.forEach {
+        if (it.value == a.size) {
+            distinctFactorial.add(it.key)
+        }
+    }
+    var maps = mutableMapOf<Int, Int>()
+    distinctFactorial.forEach { idx ->
+        gcm.get(idx)?.let { value ->
+            maps.put(idx, value)
+        }
+    }
+    return maps
+}
+
+fun getTotalX(a: Array<Int>, b: Array<Int>): Int {
+    var lists = mutableListOf<Int>()
+    a.sort()
+    b.sort()
+    val times = mutableListOf<Long>()
+    times.add(System.nanoTime())
+
+    val gcmData = getGCM(b)
+    val multiplier = mutableListOf<Int>()
+    gcmData.forEach {
+        for (x in 1..it.value) {
+            multiplier.add(it.key)
+        }
+    }
+    val possibilities = mutableListOf<Int>()
+    for (x in 0 until multiplier.size) {
+        var value = multiplier[x]
+        possibilities.add(value)
+        for (y in 0 until multiplier.size) {
+            if (x != y) {
+                value *= multiplier[y]
+                possibilities.add(value)
+                possibilities.add(multiplier[x] * multiplier[y])
+            }
+        }
+    }
+    possibilities.distinct().forEach { possible ->
+        var isOkay = true
+        a.forEach { divider ->
+            if (possible % divider != 0) isOkay = false
+        }
+        if (isOkay) lists.add(possible)
+    }
+
+    times.add(System.nanoTime())
+    val sec = TimeUnit.MICROSECONDS.convert(times[1] - times[0], TimeUnit.NANOSECONDS)
+    return lists.size
+}

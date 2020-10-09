@@ -104,6 +104,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Social Login" />
+
+            <Button
+                android:id="@+id/btScrollAlpha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scroll Alpha like Tokopedia" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

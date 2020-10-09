@@ -1,8 +1,10 @@
 package com.explore.playground.mvvmnavfan
 
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.explore.playground.R
 import com.explore.playground.base.BaseFragment
 import com.explore.playground.repository.model.PokemonURL
@@ -22,11 +24,16 @@ class PokemonListFragment : BaseFragment() {
     }
 
     override fun setInitialAsset() {
+        val dividerItemDecoration = DividerItemDecoration(
+            ctx,
+            LinearLayout.VERTICAL
+        )
         exitTransition = Hold()
 
         vm = ViewModelProvider(this).get(PokemonVM::class.java)
         rvPokemon.init(ctx)
         adapter = PokemonAdapter(ctx)
+        rvPokemon.addItemDecoration(dividerItemDecoration)
         adapter.addAllItem(vm.oldData)
         vm.data.observe(viewLifecycleOwner, Observer { event ->
             event.showOnce()?.let {

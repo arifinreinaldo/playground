@@ -1,2 +1,3 @@
+include ':dynamicmodule'
 include ':app'
 rootProject.name='PlayGround'
