@@ -7,6 +7,7 @@ import com.explore.playground.base.BaseActivity
 import com.explore.playground.bottomsheetdialog.BottomSheetActivity
 import com.explore.playground.dialogpicker.PickerActivity
 import com.explore.playground.easycamera.CameraActivity
+import com.explore.playground.easycamera.CameraNative
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.fcm.FCMActivity
 import com.explore.playground.filepicker.FilePickerActivity
@@ -81,6 +82,9 @@ class MenuActivity : BaseActivity() {
         }
         btScrollAlpha.setOnClickListener {
             startActivity(Intent(this, ScrollAlphaActivity::class.java))
+        }
+        btCameraNative.setOnClickListener {
+            startActivity(Intent(this, CameraNative::class.java))
         }
     }
 }

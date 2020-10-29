@@ -82,6 +82,12 @@
                 android:text="EasyImage" />
 
             <Button
+                android:id="@+id/btCameraNative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Native Camera" />
+
+            <Button
                 android:id="@+id/btBottomSheet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
