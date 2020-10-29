@@ -41,9 +41,9 @@ open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
         var ret = false
         item?.let {
             items.addAll(item)
-            notifyDataSetChanged()
             ret = true
         }
+        this.notifyDataSetChanged()
         return ret
     }
 

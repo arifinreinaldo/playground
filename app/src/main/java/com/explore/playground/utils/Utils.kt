@@ -83,6 +83,10 @@ fun Int.toMilis(): Long {
 }
 
 
+fun ImageView.load(value: Any) {
+    Glide.with(this).load(value).into(this)
+}
+
 fun ImageView.load(value: Any, ctx: Context) {
     val options = RequestOptions().placeholder(CircularProgressDrawable(ctx).apply {
         strokeWidth = 8f

@@ -28,7 +28,7 @@ class ImageAdapter(ctx: Context) :
         BaseViewHolder<MediaFile>(itemView) {
         val ivImage = itemView.ivImage
         override fun onBind(item: MediaFile) {
-            ivImage.load(item.file, itemView.context)
+            ivImage.load(item.file)
         }
 
     }

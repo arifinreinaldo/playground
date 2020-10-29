@@ -11,14 +11,7 @@ import pl.aprilapps.easyphotopicker.MediaFile
 
 
 class CameraActivity : BaseActivity() {
-    private lateinit var adapter: ImageAdapter
-    private val PHOTOS_KEY = "easy_image_photos_list"
     val requestCode = 110
-    private val CHOOSER_PERMISSIONS_REQUEST_CODE = 7459
-    private val CAMERA_REQUEST_CODE = 7500
-    private val CAMERA_VIDEO_REQUEST_CODE = 7501
-    private val GALLERY_REQUEST_CODE = 7502
-    private val DOCUMENTS_REQUEST_CODE = 7503
     private lateinit var easyImage: EasyImage
     override fun setLayoutId(): Int {
         return R.layout.activity_camera
@@ -29,17 +22,6 @@ class CameraActivity : BaseActivity() {
             askPermission(INITIAL_PERMS, requestCode)
 
         }
-
-        rvGallery.init(ctx)
-        adapter = ImageAdapter(ctx)
-        adapter.listen = object : ImageAdapter.MediaFileListener {
-            override fun onItemClicked(item: MediaFile) {
-
-            }
-
-        }
-        rvGallery.adapter = adapter
-
 
         easyImage = EasyImage.Builder(ctx).setChooserTitle("Pick Mediazz")
             .setCopyImagesToPublicGalleryFolder(false)
@@ -83,10 +65,11 @@ class CameraActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         easyImage.handleActivityResult(
             requestCode,
             resultCode,
-            data,
+            fixDataIntentForEasyImage(data),
             this,
             object : DefaultCallback() {
                 override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
@@ -96,7 +79,20 @@ class CameraActivity : BaseActivity() {
             })
     }
 
+    private fun fixDataIntentForEasyImage(dataIntent: Intent?): Intent? {
+        if (dataIntent == null) {
+            return null
+        }
+        if (dataIntent.dataString.isNullOrEmpty()) {
+            return null
+        }
+
+        return dataIntent
+    }
+
     fun onImageResult(result: Array<MediaFile>) {
-        adapter.addAllItem(result.toMutableList())
+        if (result.isNotEmpty()) {
+            imagePict.load(result.first().file)
+        }
     }
 }
