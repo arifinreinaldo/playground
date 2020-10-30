@@ -19,7 +19,7 @@ class CameraNative : BaseActivity() {
     }
 
     override fun setInit() {
-        simpleCamera = SimpleCamera(this)
+        simpleCamera = SimpleCamera(this, "com.explore.playground.fileprovider")
         takePict.setOnClickListener {
             simpleCamera.openCamera()
         }

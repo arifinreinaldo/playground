@@ -16,7 +16,7 @@ import java.util.*
 
 const val CALL_SIMPLE_CAMERA = 21892
 
-class SimpleCamera(val activity: FragmentActivity) {
+class SimpleCamera(val activity: FragmentActivity, val provider: String) {
     private var currentPhotoPath: String? = null
     fun openCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
@@ -37,7 +37,7 @@ class SimpleCamera(val activity: FragmentActivity) {
                     try {
                         val photoURI: Uri = FileProvider.getUriForFile(
                             activity.applicationContext,
-                            "com.explore.playground.fileprovider",
+                            provider,
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
