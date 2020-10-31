@@ -20,7 +20,7 @@ import java.util.*
 
 const val CALL_SIMPLE_CAMERA = 21892
 const val PREF_SIMPLE_CAMERA = "SIMPLE_ABSOLUTE_PATH_21892"
-const val PATH_SIMPLE_CAMERA = "SIMPLE_ABSOLUTE_PATH_21892"
+const val PATH_SIMPLE_CAMERA = "PATH_ABSOLUTE_PATH_21892"
 
 class SimpleCamera {
     private var call: ActivityCaller
@@ -99,7 +99,6 @@ class SimpleCamera {
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? =
             context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -110,19 +109,14 @@ class SimpleCamera {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
-            writePref(currentPhotoPath ?: "")
+            setPath(currentPhotoPath ?: "")
         }
     }
 
     fun returnFile(requestCode: Int, resultCode: Int, data: Intent?): File? {
-        if (requestCode == CALL_SIMPLE_CAMERA && resultCode == AppCompatActivity.RESULT_OK) {
-            val path = currentPhotoPath?.let {
-                it
-            } ?: kotlin.run {
-                getPref()
-            }
-            return if (path.isNotEmpty()) {
-                writePref()
+        return if (requestCode == CALL_SIMPLE_CAMERA && resultCode == AppCompatActivity.RESULT_OK) {
+            val path = getPath()
+            if (path.isNotEmpty()) {
                 File(path)
             } else {
                 Toast.makeText(
@@ -133,17 +127,21 @@ class SimpleCamera {
                 null
             }
         } else {
-            return null
+            null
         }
     }
 
-    fun writePref(value: String = "") {
+    private fun setPath(value: String = "") {
         sharedPreferences.edit {
             putString(PATH_SIMPLE_CAMERA, value)
         }
     }
 
-    fun getPref(): String {
-        return sharedPreferences.getString(PATH_SIMPLE_CAMERA, "") ?: ""
+    private fun getPath(): String {
+        return currentPhotoPath?.let {
+            it
+        } ?: kotlin.run {
+            sharedPreferences.getString(PATH_SIMPLE_CAMERA, "") ?: ""
+        }
     }
 }
