@@ -2,7 +2,6 @@ package com.explore.playground.easycamera
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.os.Bundle
 import android.provider.MediaStore
 import com.explore.playground.R
 import com.explore.playground.base.BaseActivity
@@ -41,13 +40,13 @@ class CameraNative : BaseActivity() {
         }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        simpleCamera.restorePath(savedInstanceState.getString("PathX", ""))
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("PathX", simpleCamera.getPath())
-        super.onSaveInstanceState(outState)
-    }
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+//        super.onRestoreInstanceState(savedInstanceState)
+////        simpleCamera.restorePath(savedInstanceState.getString("PathX", ""))
+//    }
+//
+//    override fun onSaveInstanceState(outState: Bundle) {
+////        outState.putString("PathX", simpleCamera.getPath())
+//        super.onSaveInstanceState(outState)
+//    }
 }

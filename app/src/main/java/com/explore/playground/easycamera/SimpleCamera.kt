@@ -3,12 +3,14 @@ package com.explore.playground.easycamera
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import java.io.File
 import java.io.IOException
@@ -17,28 +19,34 @@ import java.util.*
 
 
 const val CALL_SIMPLE_CAMERA = 21892
+const val PREF_SIMPLE_CAMERA = "SIMPLE_ABSOLUTE_PATH_21892"
+const val PATH_SIMPLE_CAMERA = "SIMPLE_ABSOLUTE_PATH_21892"
 
 class SimpleCamera {
     private var call: ActivityCaller
     private var fileProvider: String
     private var context: Context
+    private val sharedPreferences: SharedPreferences
 
     constructor(activity: Activity, provider: String) {
         this.call = ActivityCaller(activity = activity)
         this.fileProvider = provider
         this.context = call.context
+        sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
     }
 
     constructor(fragment: Fragment, provider: String) {
         this.call = ActivityCaller(fragment = fragment)
         this.fileProvider = provider
         this.context = call.context
+        sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
     }
 
     constructor(fragment: android.app.Fragment, provider: String) {
         this.call = ActivityCaller(deprecatedFragment = fragment)
         this.fileProvider = provider
         this.context = call.context
+        sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
     }
 
     private class ActivityCaller(
@@ -102,40 +110,40 @@ class SimpleCamera {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
+            writePref(currentPhotoPath ?: "")
         }
     }
 
     fun returnFile(requestCode: Int, resultCode: Int, data: Intent?): File? {
         if (requestCode == CALL_SIMPLE_CAMERA && resultCode == AppCompatActivity.RESULT_OK) {
-            currentPhotoPath?.let {
-                return if (it.isNotEmpty()) {
-                    File(currentPhotoPath)
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Empty Photopath",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    null
-                }
+            val path = currentPhotoPath?.let {
+                it
             } ?: kotlin.run {
+                getPref()
+            }
+            return if (path.isNotEmpty()) {
+                writePref()
+                File(path)
+            } else {
                 Toast.makeText(
                     context,
                     "Empty Photopath",
                     Toast.LENGTH_SHORT
                 ).show()
-                return null
+                null
             }
         } else {
             return null
         }
     }
 
-    fun restorePath(path: String) {
-        currentPhotoPath = path
+    fun writePref(value: String = "") {
+        sharedPreferences.edit {
+            putString(PATH_SIMPLE_CAMERA, value)
+        }
     }
 
-    fun getPath(): String {
-        return currentPhotoPath ?: ""
+    fun getPref(): String {
+        return sharedPreferences.getString(PATH_SIMPLE_CAMERA, "") ?: ""
     }
 }
