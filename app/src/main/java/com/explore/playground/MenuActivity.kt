@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import com.explore.playground.adapterAndRecyclerview.DummyRecyclerActivity
 import com.explore.playground.base.BaseActivity
+import com.explore.playground.base.BaseApp
 import com.explore.playground.bottomsheetdialog.BottomSheetActivity
 import com.explore.playground.dialogpicker.PickerActivity
 import com.explore.playground.easycamera.CameraActivity
@@ -28,6 +29,7 @@ class MenuActivity : BaseActivity() {
     }
 
     override fun setInit() {
+        (application as BaseApp).appComponent.inject(this)
         btGeneral.setOnClickListener {
             val intent = Intent(this, DummyRecyclerActivity::class.java)
             startActivity(intent)

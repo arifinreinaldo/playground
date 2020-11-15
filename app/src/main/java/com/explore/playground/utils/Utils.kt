@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.CountDownTimer
 import android.util.Log
@@ -13,12 +14,15 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.explore.playground.R
 import com.squareup.moshi.Moshi
@@ -185,6 +189,55 @@ fun getMoshi(): Moshi {
 
 val EditText.value
     get() = text?.toString() ?: ""
+
+fun getOption(context: Context): RequestOptions {
+    return RequestOptions()
+        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .placeholder(
+            CircularProgressDrawable(context).apply {
+                strokeWidth = 8f
+                centerRadius = 20f
+                start()
+            }
+        )
+}
+
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun getErrorImage(imageId: Int?, context: Context): Drawable? {
+    return imageId?.let {
+        context.getDrawable(imageId)
+    } ?: run {
+        null
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun ImageView.loadCircle(
+    uri: Any?,
+    imageId: Int? = null
+) {
+
+    Glide.with(this.context)
+        .setDefaultRequestOptions(getOption(this.context))
+        .load(uri)
+        .circleCrop()
+        .error(getErrorImage(imageId, this.context))
+        .into(this)
+}
+
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun ImageView.loadCurve(
+    value: Any,
+    imageId: Int? = null
+) {
+    Glide.with(this.context)
+        .setDefaultRequestOptions(getOption(this.context))
+        .load(value)
+        .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
+        .error(getErrorImage(imageId, this.context))
+        .into(this);
+}
 
 
 //fun solutions(A: IntArray): Int {

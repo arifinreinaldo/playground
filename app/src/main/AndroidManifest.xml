@@ -54,7 +54,6 @@
         <activity android:name=".localization.LocalizationActivity" />
         <activity android:name=".dialogpicker.PickerActivity" />
         <activity android:name=".mvvm.VMActivity" />
-        <activity android:name=".room.RoomActivity" />
         <activity android:name=".navigator.NavigatorActivity" />
         <activity android:name=".speechrecognition.SpeechRecogActivity" />
         <activity android:name=".exoplayer.ExoActivity" />
