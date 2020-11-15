@@ -59,7 +59,9 @@
         <activity android:name=".exoplayer.ExoActivity" />
         <activity android:name=".recorder.RecordingActivity" />
         <activity android:name=".mvvmnavfan.CompositeActivity" />
-        <activity android:name=".MenuActivity">
+        <activity
+            android:name=".MenuActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.explore.playground.R
 
 abstract class BaseActivity : AppCompatActivity() {
     companion object {
@@ -19,6 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //one time initialization
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         setContentView(setLayoutId())
         setDefautSetting()
         setInit()
@@ -36,7 +38,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        
+
     }
 
     override fun onStop() {
