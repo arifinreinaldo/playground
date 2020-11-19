@@ -19,8 +19,10 @@ class CameraNative : BaseActivity() {
 
     override fun setInit() {
         simpleCamera = SimpleCamera(this, "com.explore.playground.fileprovider")
+        simpleCamera.cleanup()
         takePict.setOnClickListener {
-            simpleCamera.openCamera()
+//            simpleCamera.openCamera()
+            simpleCamera.openGallery()
         }
     }
 
@@ -35,7 +37,8 @@ class CameraNative : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        simpleCamera.returnFile(requestCode, resultCode, data)?.let {
+        val img = simpleCamera.returnFile(requestCode, resultCode, data)
+        img?.let {
             imagePict.load(it)
         }
     }

@@ -1,24 +1,30 @@
 package com.explore.playground.easycamera
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 const val CALL_SIMPLE_CAMERA = 21892
+const val CALL_SIMPLE_GALLERY = 21893
 const val PREF_SIMPLE_CAMERA = "SIMPLE_ABSOLUTE_PATH_21892"
 const val PATH_SIMPLE_CAMERA = "PATH_ABSOLUTE_PATH_21892"
 
@@ -97,6 +103,12 @@ class SimpleCamera {
         }
     }
 
+    fun openGallery(allowMultiple: Boolean = false) {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        if (Build.VERSION.SDK_INT >= 18) intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, allowMultiple)
+        call?.startActivityForResult(intent, CALL_SIMPLE_GALLERY)
+    }
+
     @Throws(IOException::class)
     private fun createImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -126,6 +138,17 @@ class SimpleCamera {
                 ).show()
                 null
             }
+        } else if (requestCode == CALL_SIMPLE_GALLERY) {
+            val clipData = data?.clipData
+            if (clipData != null) {
+                for (i in 0 until clipData.itemCount) {
+                    val uri = clipData.getItemAt(i).uri
+                    return pickedExistingPicture(context, uri)
+                }
+            } else {
+                return onPickedExistingPicturesFromLocalStorage(data!!, context)
+            }
+            null
         } else {
             null
         }
@@ -142,6 +165,82 @@ class SimpleCamera {
             it
         } ?: kotlin.run {
             sharedPreferences.getString(PATH_SIMPLE_CAMERA, "") ?: ""
+        }
+    }
+
+    @Throws(IOException::class)
+    internal fun pickedExistingPicture(context: Context, photoUri: Uri): File {
+        val pictureInputStream = context.contentResolver.openInputStream(photoUri)
+        val directory = tempImageDirectory(context)
+        val photoFile = File(
+            directory, generateFileName() + "." + getMimeType(
+                context,
+                photoUri
+            )
+        )
+        photoFile.createNewFile()
+        writeToFile(pictureInputStream!!, photoFile)
+        return photoFile
+    }
+
+    private fun tempImageDirectory(context: Context): File {
+        val privateTempDir = File(context.cacheDir, "SimpleCamera")
+        if (!privateTempDir.exists()) privateTempDir.mkdirs()
+        return privateTempDir
+    }
+
+    private fun generateFileName(): String {
+        return "sc_${System.currentTimeMillis()}"
+    }
+
+    private fun getMimeType(context: Context, uri: Uri): String? {
+        val extension: String?
+
+        //Check uri format to avoid null
+        if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
+            //If scheme is a content
+            val mime = MimeTypeMap.getSingleton()
+            extension = mime.getExtensionFromMimeType(context.contentResolver.getType(uri))
+        } else {
+            //If scheme is a File
+            //This will replace white spaces with %20 and also other special characters. This will avoid returning null values on file name with spaces and special characters.
+            extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(File(uri.path)).toString())
+        }
+
+        return extension
+    }
+
+    private fun writeToFile(inputStream: InputStream, file: File) {
+        try {
+            val outputStream = FileOutputStream(file)
+            val buffer = ByteArray(1024)
+            var length: Int = inputStream.read(buffer)
+            while (length > 0) {
+                outputStream.write(buffer, 0, length)
+                length = inputStream.read(buffer)
+            }
+            outputStream.close()
+            inputStream.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun cleanup() {
+        val privateTempDir = File(context.cacheDir, "SimpleCamera")
+        if (privateTempDir.exists()) privateTempDir.deleteRecursively()
+    }
+
+    private fun onPickedExistingPicturesFromLocalStorage(
+        resultIntent: Intent,
+        context: Context
+    ): File? {
+        return try {
+            val uri = resultIntent.data!!
+            pickedExistingPicture(context, uri)
+        } catch (error: Throwable) {
+            error.printStackTrace()
+            null
         }
     }
 }
