@@ -3,6 +3,7 @@ package com.explore.playground.easycamera
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.provider.MediaStore
+import com.explore.playground.BuildConfig
 import com.explore.playground.R
 import com.explore.playground.base.BaseActivity
 import com.explore.playground.utils.load
@@ -13,16 +14,18 @@ const val REQUEST_IMAGE_CAPTURE = 9998
 
 class CameraNative : BaseActivity() {
     lateinit var simpleCamera: SimpleCamera
+
     override fun setLayoutId(): Int {
         return R.layout.activity_camera_native
     }
 
     override fun setInit() {
-        simpleCamera = SimpleCamera(this, "com.explore.playground.fileprovider")
+        simpleCamera = SimpleCamera(this, "${BuildConfig.APPLICATION_ID}.fileprovider")
         simpleCamera.cleanup()
         takePict.setOnClickListener {
 //            simpleCamera.openCamera()
-            simpleCamera.openGallery()
+//            simpleCamera.openGallery()
+            simpleCamera.openChooser()
         }
     }
 

@@ -9,12 +9,18 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import android.webkit.MimeTypeMap
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -29,30 +35,44 @@ const val PREF_SIMPLE_CAMERA = "SIMPLE_ABSOLUTE_PATH_21892"
 const val PATH_SIMPLE_CAMERA = "PATH_ABSOLUTE_PATH_21892"
 
 class SimpleCamera {
+    private val dialog by lazy {
+        BottomSheetDialog(context)
+    }
+    val layout: LinearLayout by lazy {
+        LinearLayout(context)
+    }
+
     private var call: ActivityCaller
     private var fileProvider: String
     private var context: Context
     private val sharedPreferences: SharedPreferences
+    private var allowMultiple: Boolean = false
 
-    constructor(activity: Activity, provider: String) {
+    constructor(activity: Activity, provider: String, allow: Boolean = false) {
         this.call = ActivityCaller(activity = activity)
         this.fileProvider = provider
         this.context = call.context
         sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
+        this.allowMultiple = allow
+        initLayout(context)
     }
 
-    constructor(fragment: Fragment, provider: String) {
+    constructor(fragment: Fragment, provider: String, allow: Boolean = false) {
         this.call = ActivityCaller(fragment = fragment)
         this.fileProvider = provider
         this.context = call.context
         sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
+        this.allowMultiple = allow
+        initLayout(context)
     }
 
-    constructor(fragment: android.app.Fragment, provider: String) {
+    constructor(fragment: android.app.Fragment, provider: String, allow: Boolean = false) {
         this.call = ActivityCaller(deprecatedFragment = fragment)
         this.fileProvider = provider
         this.context = call.context
         sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
+        this.allowMultiple = allow
+        initLayout(context)
     }
 
     private class ActivityCaller(
@@ -146,7 +166,9 @@ class SimpleCamera {
                     return pickedExistingPicture(context, uri)
                 }
             } else {
-                return onPickedExistingPicturesFromLocalStorage(data!!, context)
+                data?.let {
+                    return onPickedExistingPicturesFromLocalStorage(data!!, context)
+                }
             }
             null
         } else {
@@ -242,5 +264,89 @@ class SimpleCamera {
             error.printStackTrace()
             null
         }
+    }
+
+    private fun initLayout(ctx: Context) {
+        //layout
+        layout.orientation = LinearLayout.VERTICAL
+        layout.setPadding(50)
+        layout.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        //title
+        val textView = TextView(ctx)
+        textView.text = "Chooser"
+        textView.textSize = 20.0F
+        textView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        layout.addView(textView)
+        val line = View(context)
+        line.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 3)
+        line.setBackgroundColor(
+            if (Build.VERSION.SDK_INT >= 23) {
+                ctx.getColor(android.R.color.black)
+            } else {
+                ctx.resources.getColor(android.R.color.black)
+            }
+        )
+        layout.addView(line)
+
+        //content
+        val contentLayout = LinearLayout(ctx)
+        contentLayout.orientation = LinearLayout.HORIZONTAL
+        contentLayout.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        //option1
+        val optionLinear = LinearLayout(ctx)
+        optionLinear.orientation = LinearLayout.VERTICAL
+        optionLinear.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        val textViewOption = TextView(ctx)
+        textViewOption.text = "Camera"
+        optionLinear.setOnClickListener {
+            openCamera()
+            dialog.dismiss()
+        }
+
+        val ivIcon = ImageView(ctx)
+        ivIcon.setImageResource(android.R.drawable.ic_menu_camera)
+        optionLinear.addView(ivIcon)
+        optionLinear.addView(textViewOption)
+        contentLayout.addView(optionLinear)
+
+        //option2
+        val optionLinear2 = LinearLayout(ctx)
+        optionLinear2.orientation = LinearLayout.VERTICAL
+        optionLinear2.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        val ivIcon2 = ImageView(ctx)
+        ivIcon2.setImageResource(android.R.drawable.ic_menu_gallery)
+        optionLinear2.addView(ivIcon2)
+        val textViewOption2 = TextView(ctx)
+        textViewOption2.text = "Gallery"
+        optionLinear2.setOnClickListener {
+            openGallery(allowMultiple)
+            dialog.dismiss()
+        }
+        optionLinear2.addView(textViewOption2)
+
+        contentLayout.addView(optionLinear2)
+        layout.addView(contentLayout)
+        dialog.setContentView(layout)
+    }
+
+    fun openChooser() {
+        dialog.show()
     }
 }

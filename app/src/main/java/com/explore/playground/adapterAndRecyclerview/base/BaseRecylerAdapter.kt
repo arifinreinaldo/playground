@@ -16,7 +16,7 @@ open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
     var layoutInflater: LayoutInflater = LayoutInflater.from(ctx)
 
     fun setItem(items: MutableList<T>) {
-        items?.let {
+        items.let {
             this.items.clear()
             this.items = it
             notifyDataSetChanged()
@@ -27,24 +27,54 @@ open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
         return items
     }
 
-    fun addItem(item: T): Boolean {
-        var ret = false
+    operator fun plusAssign(item: T): Unit {
         item?.let {
             items.add(item)
-            notifyItemInserted(items.size - 1);
+            notifyItemInserted(items.size - 1)
+        }
+    }
+
+    fun getItemByPosition(pos: Int): T? {
+        return try {
+            items[pos]
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun addItem(item: T, index: Int = -1): Boolean {
+        var ret = false
+        item?.let {
+            if (index == -1) {
+                items.add(item)
+                notifyItemInserted(items.size - 1)
+            } else {
+                items.add(index, item)
+                notifyItemInserted(index)
+            }
+            ret = true
+        }
+        return ret
+    }
+
+    fun push(item: T): Boolean {
+        var ret = false
+        item?.let {
+            items.add(0, item)
+            notifyItemInserted(0)
             ret = true
         }
         return ret
     }
 
     fun addAllItem(item: MutableList<T>): Boolean {
-        var ret = false
-        item?.let {
+        return try {
             items.addAll(item)
-            ret = true
+            notifyDataSetChanged()
+            true
+        } catch (e: Exception) {
+            false
         }
-        this.notifyDataSetChanged()
-        return ret
     }
 
     fun clear() {
@@ -56,6 +86,16 @@ open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
         var ret = false
         val position = items.indexOf(item)
         if (position > -1) {
+            items.removeAt(position)
+            ret = true
+            notifyItemRemoved(position)
+        }
+        return ret
+    }
+
+    fun removeAtPosition(position: Int): Boolean {
+        var ret = false
+        if (position > -1 && items.isNotEmpty()) {
             items.removeAt(position)
             ret = true
             notifyItemRemoved(position)
@@ -81,7 +121,7 @@ open class BaseRecylerAdapter<T, VH : BaseViewHolder<T>>(ctx: Context) :
     }
 
     override fun getItemCount(): Int {
-        return items?.count()
+        return items.count()
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
