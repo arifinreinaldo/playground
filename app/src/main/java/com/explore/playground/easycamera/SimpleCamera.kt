@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
@@ -48,30 +49,68 @@ class SimpleCamera {
     private val sharedPreferences: SharedPreferences
     private var allowMultiple: Boolean = false
 
-    constructor(activity: Activity, provider: String, allow: Boolean = false) {
+    @DrawableRes
+    private var cameraIcon: Int = android.R.drawable.ic_menu_camera
+
+    @DrawableRes
+    private var galleryIcon: Int = android.R.drawable.ic_menu_gallery
+
+    constructor(
+        activity: Activity,
+        provider: String,
+        allow: Boolean = false,
+        @DrawableRes icon_camera: Int? = null,
+        @DrawableRes icon_gallery: Int? = null
+    ) {
         this.call = ActivityCaller(activity = activity)
         this.fileProvider = provider
         this.context = call.context
         sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
         this.allowMultiple = allow
+        icon_camera?.let {
+            this.cameraIcon = it
+        }
+        icon_gallery?.let {
+            this.galleryIcon = it
+        }
         initLayout(context)
     }
 
-    constructor(fragment: Fragment, provider: String, allow: Boolean = false) {
+    constructor(
+        fragment: Fragment, provider: String, allow: Boolean = false,
+        @DrawableRes icon_camera: Int? = null,
+        @DrawableRes icon_gallery: Int? = null
+    ) {
         this.call = ActivityCaller(fragment = fragment)
         this.fileProvider = provider
         this.context = call.context
         sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
         this.allowMultiple = allow
+        icon_camera?.let {
+            this.cameraIcon = it
+        }
+        icon_gallery?.let {
+            this.galleryIcon = it
+        }
         initLayout(context)
     }
 
-    constructor(fragment: android.app.Fragment, provider: String, allow: Boolean = false) {
+    constructor(
+        fragment: android.app.Fragment, provider: String, allow: Boolean = false,
+        @DrawableRes icon_camera: Int? = null,
+        @DrawableRes icon_gallery: Int? = null
+    ) {
         this.call = ActivityCaller(deprecatedFragment = fragment)
         this.fileProvider = provider
         this.context = call.context
         sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
         this.allowMultiple = allow
+        icon_camera?.let {
+            this.cameraIcon = it
+        }
+        icon_gallery?.let {
+            this.galleryIcon = it
+        }
         initLayout(context)
     }
 
@@ -266,7 +305,9 @@ class SimpleCamera {
         }
     }
 
-    private fun initLayout(ctx: Context) {
+    private fun initLayout(
+        ctx: Context
+    ) {
         //layout
         layout.orientation = LinearLayout.VERTICAL
         layout.setPadding(50)
@@ -284,7 +325,11 @@ class SimpleCamera {
         )
         layout.addView(textView)
         val line = View(context)
-        line.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 3)
+        LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 3).apply {
+            this.bottomMargin = 10
+            this.topMargin = 10
+            line.layoutParams = this
+        }
         line.setBackgroundColor(
             if (Build.VERSION.SDK_INT >= 23) {
                 ctx.getColor(android.R.color.black)
@@ -309,6 +354,7 @@ class SimpleCamera {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
+        optionLinear.setPadding(20)
         val textViewOption = TextView(ctx)
         textViewOption.text = "Camera"
         optionLinear.setOnClickListener {
@@ -317,7 +363,8 @@ class SimpleCamera {
         }
 
         val ivIcon = ImageView(ctx)
-        ivIcon.setImageResource(android.R.drawable.ic_menu_camera)
+        ivIcon.setImageResource(cameraIcon)
+
         optionLinear.addView(ivIcon)
         optionLinear.addView(textViewOption)
         contentLayout.addView(optionLinear)
@@ -329,9 +376,11 @@ class SimpleCamera {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
+        optionLinear2.setPadding(20)
 
         val ivIcon2 = ImageView(ctx)
-        ivIcon2.setImageResource(android.R.drawable.ic_menu_gallery)
+        ivIcon2.setImageResource(galleryIcon)
+        
         optionLinear2.addView(ivIcon2)
         val textViewOption2 = TextView(ctx)
         textViewOption2.text = "Gallery"
