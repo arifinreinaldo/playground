@@ -116,6 +116,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Scroll Alpha like Tokopedia" />
+
+            <Button
+                android:id="@+id/btShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share Image + generate QR" />
+
+            <ImageView
+                android:id="@+id/ivImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
