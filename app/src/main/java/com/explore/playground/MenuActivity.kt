@@ -122,14 +122,25 @@ class MenuActivity : BaseActivity() {
                     file
                 )
                 ivImg.load(photoURI)
-                val whatsappIntent = Intent(Intent.ACTION_SEND)
-                whatsappIntent.type = "text/plain"
-                whatsappIntent.setPackage("com.whatsapp")
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share")
-                whatsappIntent.putExtra(Intent.EXTRA_STREAM, photoURI)
-                whatsappIntent.type = "image/jpg"
-                whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                startActivity(whatsappIntent)
+//                val whatsappIntent = Intent(Intent.ACTION_SEND)
+//                whatsappIntent.type = "text/plain"
+//                whatsappIntent.setPackage("com.whatsapp")
+//                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share")
+//                whatsappIntent.putExtra(Intent.EXTRA_STREAM, photoURI)
+//                whatsappIntent.type = "image/jpg"
+//                whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//                startActivity(whatsappIntent)
+                val shareIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_STREAM, photoURI)
+                    type = "image/jpeg"
+                }
+                startActivity(
+                    Intent.createChooser(
+                        shareIntent,
+                        "BAGI BAGI"
+                    )
+                )
             } catch (e: Exception) {
                 e.printStackTrace();
             }

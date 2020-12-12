@@ -17,6 +17,7 @@ import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -100,13 +101,23 @@ fun ImageView.load(value: Any, ctx: Context) {
     Glide.with(this).setDefaultRequestOptions(options).load(value).into(this)
 }
 
-fun RecyclerView.init(ctx: Context, type: String = "linear", horizontal: Boolean = false) {
+fun RecyclerView.init(
+    ctx: Context,
+    type: String = "linear",
+    horizontal: Boolean = false,
+    reverseLayout: Boolean = false,
+    column: Int = 2
+) {
     if (type.equals("linear", true)) {
         if (horizontal) {
-            this.layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
+            this.layoutManager =
+                LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, reverseLayout)
         } else {
-            this.layoutManager = LinearLayoutManager(ctx)
+            this.layoutManager =
+                LinearLayoutManager(ctx, LinearLayoutManager.VERTICAL, reverseLayout)
         }
+    } else if (type.equals("grid", true)) {
+        this.layoutManager = GridLayoutManager(context, column)
     } else {
     }
 }
@@ -237,6 +248,11 @@ fun ImageView.loadCurve(
         .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
         .error(getErrorImage(imageId, this.context))
         .into(this);
+}
+fun Boolean.isTrue(block: Boolean.() -> Unit) {
+    if (this) {
+        block()
+    }
 }
 
 
