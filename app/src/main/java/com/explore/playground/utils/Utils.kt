@@ -29,6 +29,8 @@ import com.explore.playground.R
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
+val isoFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" //"2020-11-12T08:49:30.000Z"
+val time = "hh:mm a" //with am pM
 
 fun hideKeyboard(context: Context?, view: View?) {
     val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -249,12 +251,12 @@ fun ImageView.loadCurve(
         .error(getErrorImage(imageId, this.context))
         .into(this);
 }
+
 fun Boolean.isTrue(block: Boolean.() -> Unit) {
     if (this) {
         block()
     }
 }
-
 
 //fun solutions(A: IntArray): Int {
 //    val N: Int = A.size
