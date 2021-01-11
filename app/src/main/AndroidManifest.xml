@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".shareqr.ShareQRActivity"></activity>
+        <activity android:name=".gradientbackground.GradientActivity"></activity>
+        <activity android:name=".shareqr.ShareQRActivity" />
         <activity android:name=".easycamera.CameraNative" />
         <activity android:name=".scrollAlpha.ScrollAlphaActivity" />
         <activity android:name=".sociallogin.SocialLoginActivity" />

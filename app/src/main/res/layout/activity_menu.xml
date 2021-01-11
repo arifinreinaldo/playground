@@ -122,6 +122,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Share Image + generate QR" />
+
+            <Button
+                android:id="@+id/btGradient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gradient Background" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

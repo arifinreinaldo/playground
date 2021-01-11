@@ -12,6 +12,7 @@ import com.explore.playground.easycamera.CameraNative
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.fcm.FCMActivity
 import com.explore.playground.filepicker.FilePickerActivity
+import com.explore.playground.gradientbackground.GradientActivity
 import com.explore.playground.localization.LocalizationActivity
 import com.explore.playground.mvvm.VMActivity
 import com.explore.playground.mvvmnavfan.CompositeActivity
@@ -92,6 +93,9 @@ class MenuActivity : BaseActivity() {
         }
         btShare.setOnClickListener {
             startActivity(Intent(this, ShareQRActivity::class.java))
+        }
+        btGradient.setOnClickListener {
+            startActivity(Intent(this, GradientActivity::class.java))
         }
     }
 }
