@@ -7,11 +7,13 @@ import com.explore.playground.base.BaseActivity
 import com.explore.playground.base.BaseApp
 import com.explore.playground.bottomsheetdialog.BottomSheetActivity
 import com.explore.playground.dialogpicker.PickerActivity
+import com.explore.playground.draggable.DraggableActivity
 import com.explore.playground.easycamera.CameraActivity
 import com.explore.playground.easycamera.CameraNative
 import com.explore.playground.exoplayer.ExoActivity
 import com.explore.playground.fcm.FCMActivity
 import com.explore.playground.filepicker.FilePickerActivity
+import com.explore.playground.generic.GenericActivity
 import com.explore.playground.gradientbackground.GradientActivity
 import com.explore.playground.localization.LocalizationActivity
 import com.explore.playground.mvvm.VMActivity
@@ -96,6 +98,12 @@ class MenuActivity : BaseActivity() {
         }
         btGradient.setOnClickListener {
             startActivity(Intent(this, GradientActivity::class.java))
+        }
+        btGeneric.setOnClickListener {
+            startActivity(Intent(this, GenericActivity::class.java))
+        }
+        btDragable.setOnClickListener {
+            startActivity(Intent(this, DraggableActivity::class.java))
         }
     }
 }
