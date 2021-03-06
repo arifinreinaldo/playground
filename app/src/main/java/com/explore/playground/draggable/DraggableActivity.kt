@@ -16,9 +16,14 @@ class DraggableActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dragable)
 
         ivImage.load("https://static.wikia.nocookie.net/pokemon-fano/images/6/6f/Poke_Ball.png")
-        ivImage.setDraggable()
+//        ivImage.setDraggable()
         ivImage.setOnClickListener {
             Toast.makeText(this, "thi", Toast.LENGTH_SHORT).show()
+        }
+
+        animeView.setDraggable()
+        animeView.setOnClickListener {
+            Toast.makeText(this, "hiyahiya", Toast.LENGTH_SHORT).show()
         }
     }
 }

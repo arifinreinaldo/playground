@@ -12,6 +12,10 @@ fun Context.toast(@StringRes resId: Int, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, getString(resId), length).show()
 }
 
+fun Context.toast(text: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, text, length).show()
+}
+
 inline fun <reified T : AppCompatActivity> Context.startActivity(
     vararg params: Pair<KProperty1<out Any?, Any?>, Any?>
 ) {
