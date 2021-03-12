@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -40,6 +41,16 @@ fun hideKeyboard(context: Context?, view: View?) {
 fun showKeyboard(context: Context?, view: View?) {
     val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(view, 0)
+}
+
+fun View.fadeIn() {
+    this.visibility = View.VISIBLE
+    this.startAnimation(AnimationUtils.loadAnimation(this.context, R.anim.fade_in))
+}
+
+fun View.fadeOut() {
+    this.visibility = View.GONE
+    this.startAnimation(AnimationUtils.loadAnimation(this.context, R.anim.fade_out))
 }
 
 fun View.hideView() {

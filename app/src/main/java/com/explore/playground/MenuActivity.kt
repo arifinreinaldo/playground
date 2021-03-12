@@ -3,6 +3,7 @@ package com.explore.playground
 import android.content.Intent
 import android.util.Log
 import com.explore.playground.adapterAndRecyclerview.DummyRecyclerActivity
+import com.explore.playground.arrow.ArrowActivity
 import com.explore.playground.base.BaseActivity
 import com.explore.playground.base.BaseApp
 import com.explore.playground.bottomsheetdialog.BottomSheetActivity
@@ -104,6 +105,9 @@ class MenuActivity : BaseActivity() {
         }
         btDragable.setOnClickListener {
             startActivity(Intent(this, DraggableActivity::class.java))
+        }
+        btArrow.setOnClickListener {
+            startActivity(Intent(this, ArrowActivity::class.java))
         }
     }
 }

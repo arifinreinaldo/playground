@@ -6,6 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".draggable.DraggableActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/svView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:text="hiya iya" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:text="hiya iya" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:text="hiya iya" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="100dp"
