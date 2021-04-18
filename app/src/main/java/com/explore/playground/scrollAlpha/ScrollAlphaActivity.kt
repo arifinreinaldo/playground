@@ -21,9 +21,6 @@ class ScrollAlphaActivity : BaseActivity() {
 
     private fun getAlpha(scrollY: Int): Int {
         var alpha = ((scrollY.toFloat() / carouselHeight) * 255).toInt()
-        if (alpha > 255) {
-            alpha = 255
-        }
-        return alpha
+        return if (alpha > 255) 255 else alpha
     }
 }
