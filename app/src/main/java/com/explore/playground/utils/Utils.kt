@@ -269,6 +269,13 @@ fun Boolean.isTrue(block: Boolean.() -> Unit) {
     }
 }
 
+fun Activity.color(@ColorRes color: Int) = ContextCompat.getColor(this, color)
+fun Fragment.color(@ColorRes color: Int) = this.requireActivity().color(color)
+
+fun Activity.drawable(@DrawableRes drawable: Int) = ContextCompat.getDrawable(this, drawable)
+fun Fragment.drawable(@DrawableRes drawable: Int) = this.requireActivity().drawable(drawable)
+
+
 //fun solutions(A: IntArray): Int {
 //    val N: Int = A.size
 ////    val set: Set<Int> = hashMapOf<Int,Int>()

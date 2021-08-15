@@ -6,6 +6,12 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
+    <ImageView
+        android:id="@+id/ivPokemon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:transitionName="pokemon" />
+
     <TextView
         android:id="@+id/tvPokemon"
         android:layout_width="0dp"

@@ -3,10 +3,12 @@ package com.explore.playground.mvvmnavfan
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.explore.playground.R
 import com.explore.playground.adapterAndRecyclerview.base.BaseRecylerAdapter
 import com.explore.playground.adapterAndRecyclerview.base.BaseViewHolder
 import com.explore.playground.repository.model.PokemonURL
+import com.explore.playground.utils.load
 import kotlinx.android.synthetic.main.adapter_pokemon.view.*
 
 
@@ -16,7 +18,7 @@ class PokemonAdapter(ctx: Context) :
     lateinit var listen: Listener
 
     interface Listener {
-        fun onItemClicked(item: PokemonURL)
+        fun onItemClicked(item: PokemonURL, image: ImageView)
         fun onSpriteClicked(item: PokemonURL)
         fun isCheck(item: PokemonURL): Boolean
     }
@@ -25,8 +27,10 @@ class PokemonAdapter(ctx: Context) :
         BaseViewHolder<PokemonURL>(itemView) {
         override fun onBind(item: PokemonURL) {
             itemView.llRow.setOnClickListener {
-                listener.onItemClicked(item)
+                listener.onItemClicked(item, itemView.ivPokemon)
             }
+            itemView.ivPokemon.load("https://i.pinimg.com/564x/72/e3/29/72e3297ef891c59f9cc57a5452eaece9.jpg")
+            itemView.ivPokemon.transitionName = item.url
             itemView.tvPokemon.text = item.name
             itemView.ivSprite.setOnClickListener {
                 listener.onSpriteClicked(item)

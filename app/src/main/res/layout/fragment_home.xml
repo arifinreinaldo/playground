@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.explore.playground.navigator.HomeFragment">
 
-    <Button
+    <ImageView
         android:id="@+id/btPencet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pencet" />
+        android:text="pencet"
+        android:transitionName="jojo" />
 </FrameLayout>

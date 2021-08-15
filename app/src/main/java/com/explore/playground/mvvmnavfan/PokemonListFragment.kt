@@ -1,9 +1,12 @@
 package com.explore.playground.mvvmnavfan
 
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.explore.playground.R
 import com.explore.playground.base.BaseFragment
@@ -51,11 +54,14 @@ class PokemonListFragment : BaseFragment() {
 
     override fun setListener() {
         adapter.listen = object : PokemonAdapter.Listener {
-            override fun onItemClicked(item: PokemonURL) {
-                startFragment(
+            override fun onItemClicked(item: PokemonURL, image: ImageView) {
+                val extras = FragmentNavigatorExtras(
+                    image to "pokemon"
+                )
+                findNavController().navigate(
                     PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailFragment(
                         item.url
-                    )
+                    ), extras
                 )
             }
 
