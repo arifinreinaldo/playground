@@ -8,6 +8,7 @@ import com.explore.playground.base.BaseActivity
 import com.explore.playground.base.BaseApp
 import com.explore.playground.bottomsheetdialog.BottomSheetActivity
 import com.explore.playground.dialogpicker.PickerActivity
+import com.explore.playground.downloadmanager.DownloadManagerActivity
 import com.explore.playground.draggable.DraggableActivity
 import com.explore.playground.easycamera.CameraActivity
 import com.explore.playground.easycamera.CameraNative
@@ -108,6 +109,9 @@ class MenuActivity : BaseActivity() {
         }
         btArrow.setOnClickListener {
             startActivity(Intent(this, ArrowActivity::class.java))
+        }
+        btDownload.setOnClickListener {
+            startActivity(Intent(this, DownloadManagerActivity::class.java))
         }
     }
 }
