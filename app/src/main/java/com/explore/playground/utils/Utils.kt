@@ -3,6 +3,8 @@ package com.explore.playground.utils
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
@@ -277,6 +279,14 @@ fun Fragment.color(@ColorRes color: Int) = this.requireActivity().color(color)
 
 fun Activity.drawable(@DrawableRes drawable: Int) = ContextCompat.getDrawable(this, drawable)
 fun Fragment.drawable(@DrawableRes drawable: Int) = this.requireActivity().drawable(drawable)
+
+fun Activity.copyClipboard(value: String, label: String = "") {
+    (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).apply {
+        setPrimaryClip(ClipData.newPlainText(label, value))
+    }
+}
+
+fun Fragment.copyClipboard(value: String, label: String = "") = requireActivity().copyClipboard(value, label)
 
 
 //fun solutions(A: IntArray): Int {
