@@ -11,6 +11,7 @@ import com.explore.playground.R
 import com.explore.playground.adapterAndRecyclerview.base.HelperSwipe
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_dummy_recycler.*
+import kotlinx.android.synthetic.main.bottom_sheet.view.*
 
 class DummyRecyclerActivity : AppCompatActivity() {
 
@@ -22,6 +23,22 @@ class DummyRecyclerActivity : AppCompatActivity() {
         val dummies = mutableListOf<Dummy>()
         val dummy = Dummy("1", "Belajar")
         val ctx: Context = this
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
+        dummies.add(dummy)
         dummies.add(dummy)
         dummies.add(dummy)
         dummies.add(dummy)
@@ -48,6 +65,9 @@ class DummyRecyclerActivity : AppCompatActivity() {
                 sheet.state = BottomSheetBehavior.STATE_HIDDEN
             }
         }
+        llFilter.etSearch.setOnClickListener {
+            adapter.setItem(dummies.take(5).toMutableList())
+        }
         sheet.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(p0: View, p1: Float) {
             }
@@ -55,5 +75,8 @@ class DummyRecyclerActivity : AppCompatActivity() {
             override fun onStateChanged(p0: View, p1: Int) {
             }
         })
+        btFooter.setOnClickListener {
+            adapter.setItem(dummies)
+        }
     }
 }
