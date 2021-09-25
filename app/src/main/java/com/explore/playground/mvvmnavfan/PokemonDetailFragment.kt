@@ -3,11 +3,13 @@ package com.explore.playground.mvvmnavfan
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.explore.playground.R
 import com.explore.playground.base.BaseFragment
+import com.explore.playground.utils.distinctUntilChanged
 import com.explore.playground.utils.load
 import kotlinx.android.synthetic.main.fragment_pokemon_detail.*
 
@@ -31,6 +33,9 @@ class PokemonDetailFragment : BaseFragment() {
             "https://i.pinimg.com/564x/72/e3/29/72e3297ef891c59f9cc57a5452eaece9.jpg",
             this.ctx
         )
+        vm.isLoading.distinctUntilChanged().observe(viewLifecycleOwner, Observer {
+
+        })
 //        vm.getPokemonDetail(args.url)
 
 //        vm.detail.observe(viewLifecycleOwner, Observer { it ->

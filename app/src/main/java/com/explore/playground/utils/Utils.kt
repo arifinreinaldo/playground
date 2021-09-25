@@ -23,6 +23,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -286,9 +289,26 @@ fun Activity.copyClipboard(value: String, label: String = "") {
     }
 }
 
-fun Fragment.copyClipboard(value: String, label: String = "") = requireActivity().copyClipboard(value, label)
+fun Fragment.copyClipboard(value: String, label: String = "") =
+    requireActivity().copyClipboard(value, label)
 
+fun <T> LiveData<T>.distinctUntilChanged(): LiveData<T> = MediatorLiveData<T>().also { mediator ->
+    mediator.addSource(this, object : Observer<T> {
+        private var isInitialized = false
+        private var previousValue: T? = null
 
+        override fun onChanged(newValue: T?) {
+            val wasInitialized = isInitialized
+            if (!isInitialized) {
+                isInitialized = true
+            }
+            if (!wasInitialized || newValue != previousValue) {
+                previousValue = newValue
+                mediator.postValue(newValue)
+            }
+        }
+    })
+}
 //fun solutions(A: IntArray): Int {
 //    val N: Int = A.size
 ////    val set: Set<Int> = hashMapOf<Int,Int>()
