@@ -24,7 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".downloadmanager.DownloadManagerActivity"></activity>
+        <activity
+            android:name=".transparent.TransparentActivity"
+            android:exported="false" />
+        <activity android:name=".downloadmanager.DownloadManagerActivity" />
         <activity android:name=".arrow.ArrowActivity" />
         <activity android:name=".draggable.DraggableActivity" />
         <activity android:name=".generic.GenericActivity" />

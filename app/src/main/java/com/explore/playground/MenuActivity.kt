@@ -27,6 +27,7 @@ import com.explore.playground.scrollAlpha.ScrollAlphaActivity
 import com.explore.playground.shareqr.ShareQRActivity
 import com.explore.playground.sociallogin.SocialLoginActivity
 import com.explore.playground.speechrecognition.SpeechRecogActivity
+import com.explore.playground.transparent.TransparentActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 
 
@@ -112,6 +113,9 @@ class MenuActivity : BaseActivity() {
         }
         btDownload.setOnClickListener {
             startActivity(Intent(this, DownloadManagerActivity::class.java))
+        }
+        btTransparent.setOnClickListener {
+            startActivity(Intent(this, TransparentActivity::class.java))
         }
     }
 }
