@@ -21,7 +21,7 @@ class AnotherFragment : BaseFragment() {
     override fun setInitialAsset() {
         val args: AnotherFragmentArgs by navArgs()
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         ivLandscape.load(args.id)
         val flow = args.id
         write(flow)

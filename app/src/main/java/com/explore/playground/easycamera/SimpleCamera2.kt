@@ -1,6 +1,5 @@
 package com.explore.playground.easycamera
 
-import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -15,13 +14,19 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import com.explore.playground.utils.isTrue
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -30,12 +35,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-const val CALL_SIMPLE_CAMERA = 21892
-const val CALL_SIMPLE_GALLERY = 21893
-const val PREF_SIMPLE_CAMERA = "SIMPLE_ABSOLUTE_PATH_21892"
-const val PATH_SIMPLE_CAMERA = "PATH_ABSOLUTE_PATH_21892"
+const val CALL_SIMPLE_CAMERA_V2 = 407
+const val CALL_SIMPLE_GALLERY_V2 = 40797
+const val PREF_SIMPLE_CAMERA_v2 = "SIMPLE_ABSOLUTE_PATH_0407"
+const val PATH_SIMPLE_CAMERA_V2 = "PATH_ABSOLUTE_PATH_21892"
 
-class SimpleCamera {
+class SimpleCamera2 {
     private val dialog by lazy {
         BottomSheetDialog(context)
     }
@@ -43,7 +48,6 @@ class SimpleCamera {
         LinearLayout(context)
     }
 
-    private var call: ActivityCaller
     private var fileProvider: String
     private var context: Context
     private val sharedPreferences: SharedPreferences
@@ -55,17 +59,21 @@ class SimpleCamera {
     @DrawableRes
     private var galleryIcon: Int = android.R.drawable.ic_menu_gallery
 
+    private val activityResultLauncher: ActivityResultLauncher<Intent>
+    var requestMode = 0
+
     constructor(
-        activity: Activity,
+        activity: AppCompatActivity,
         provider: String,
         allow: Boolean = false,
         @DrawableRes icon_camera: Int? = null,
-        @DrawableRes icon_gallery: Int? = null
+        @DrawableRes icon_gallery: Int? = null,
+        action: (File?) -> Unit
     ) {
-        this.call = ActivityCaller(activity = activity)
         this.fileProvider = provider
-        this.context = call.context
-        sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
+        this.context = activity
+        sharedPreferences =
+            context.getSharedPreferences(PREF_SIMPLE_CAMERA_v2, Context.MODE_PRIVATE)
         this.allowMultiple = allow
         icon_camera?.let {
             this.cameraIcon = it
@@ -74,17 +82,24 @@ class SimpleCamera {
             this.galleryIcon = it
         }
         initLayout(context)
+        activityResultLauncher =
+            activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                returnFile(requestMode, it.resultCode, it.data).apply {
+                    action(this)
+                }
+            }
     }
 
     constructor(
         fragment: Fragment, provider: String, allow: Boolean = false,
         @DrawableRes icon_camera: Int? = null,
-        @DrawableRes icon_gallery: Int? = null
+        @DrawableRes icon_gallery: Int? = null,
+        action: (File?) -> Unit
     ) {
-        this.call = ActivityCaller(fragment = fragment)
         this.fileProvider = provider
-        this.context = call.context
-        sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
+        this.context = fragment.requireContext()
+        sharedPreferences =
+            context.getSharedPreferences(PREF_SIMPLE_CAMERA_v2, Context.MODE_PRIVATE)
         this.allowMultiple = allow
         icon_camera?.let {
             this.cameraIcon = it
@@ -93,40 +108,12 @@ class SimpleCamera {
             this.galleryIcon = it
         }
         initLayout(context)
-    }
-
-    constructor(
-        fragment: android.app.Fragment, provider: String, allow: Boolean = false,
-        @DrawableRes icon_camera: Int? = null,
-        @DrawableRes icon_gallery: Int? = null
-    ) {
-        this.call = ActivityCaller(deprecatedFragment = fragment)
-        this.fileProvider = provider
-        this.context = call.context
-        sharedPreferences = context.getSharedPreferences(PREF_SIMPLE_CAMERA, Context.MODE_PRIVATE)
-        this.allowMultiple = allow
-        icon_camera?.let {
-            this.cameraIcon = it
-        }
-        icon_gallery?.let {
-            this.galleryIcon = it
-        }
-        initLayout(context)
-    }
-
-    private class ActivityCaller(
-        val fragment: Fragment? = null,
-        val activity: Activity? = null,
-        val deprecatedFragment: android.app.Fragment? = null
-    ) {
-        val context: Context
-            get() = (activity ?: fragment?.activity ?: deprecatedFragment?.activity)!!
-
-        fun startActivityForResult(intent: Intent, chooser: Int) {
-            activity?.startActivityForResult(intent, chooser)
-                ?: fragment?.startActivityForResult(intent, chooser)
-                ?: deprecatedFragment?.startActivityForResult(intent, chooser)
-        }
+        activityResultLauncher =
+            fragment.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                returnFile(requestMode, it.resultCode, it.data).apply {
+                    action(this)
+                }
+            }
     }
 
     private var currentPhotoPath: String? = null
@@ -153,7 +140,7 @@ class SimpleCamera {
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        call?.startActivityForResult(takePictureIntent, CALL_SIMPLE_CAMERA)
+                        startActivityForResult(takePictureIntent, CALL_SIMPLE_CAMERA_V2)
                     } catch (e: java.lang.Exception) {
                         e.printStackTrace()
                     }
@@ -165,7 +152,7 @@ class SimpleCamera {
     fun openGallery(allowMultiple: Boolean = false) {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         if (Build.VERSION.SDK_INT >= 18) intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, allowMultiple)
-        call?.startActivityForResult(intent, CALL_SIMPLE_GALLERY)
+        startActivityForResult(intent, CALL_SIMPLE_GALLERY_V2)
     }
 
     @Throws(IOException::class)
@@ -184,8 +171,8 @@ class SimpleCamera {
         }
     }
 
-    fun returnFile(requestCode: Int, resultCode: Int, data: Intent?): File? {
-        return if (requestCode == CALL_SIMPLE_CAMERA && resultCode == AppCompatActivity.RESULT_OK) {
+    private fun returnFile(requestCode: Int, resultCode: Int, data: Intent?): File? {
+        return if (requestCode == CALL_SIMPLE_CAMERA_V2 && resultCode == AppCompatActivity.RESULT_OK) {
             val path = getPath()
             if (path.isNotEmpty()) {
                 File(path)
@@ -197,7 +184,7 @@ class SimpleCamera {
                 ).show()
                 null
             }
-        } else if (requestCode == CALL_SIMPLE_GALLERY) {
+        } else if (requestCode == CALL_SIMPLE_GALLERY_V2) {
             val clipData = data?.clipData
             if (clipData != null) {
                 for (i in 0 until clipData.itemCount) {
@@ -217,7 +204,7 @@ class SimpleCamera {
 
     private fun setPath(value: String = "") {
         sharedPreferences.edit {
-            putString(PATH_SIMPLE_CAMERA, value)
+            putString(PATH_SIMPLE_CAMERA_V2, value)
         }
     }
 
@@ -225,7 +212,7 @@ class SimpleCamera {
         return currentPhotoPath?.let {
             it
         } ?: kotlin.run {
-            sharedPreferences.getString(PATH_SIMPLE_CAMERA, "") ?: ""
+            sharedPreferences.getString(PATH_SIMPLE_CAMERA_V2, "") ?: ""
         }
     }
 
@@ -287,9 +274,18 @@ class SimpleCamera {
         }
     }
 
-    fun cleanup() {
-        val privateTempDir = File(context.cacheDir, "SimpleCamera")
-        if (privateTempDir.exists()) privateTempDir.deleteRecursively()
+    fun cleanup(coroutineScope: CoroutineScope) {
+        coroutineScope.launch(Dispatchers.IO) {
+            val privateTempDir = File(context.cacheDir, "SimpleCamera")
+            if (privateTempDir.exists()) privateTempDir.deleteRecursively()
+            val storageDir: File? =
+                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            storageDir?.let {
+                it.exists().isTrue {
+                    it.deleteRecursively()
+                }
+            }
+        }
     }
 
     private fun onPickedExistingPicturesFromLocalStorage(
@@ -397,5 +393,10 @@ class SimpleCamera {
 
     fun openChooser() {
         dialog.show()
+    }
+
+    fun startActivityForResult(intent: Intent, code: Int) {
+        activityResultLauncher.launch(intent)
+        requestMode = code
     }
 }

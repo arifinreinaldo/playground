@@ -27,11 +27,11 @@ class PokemonDetailFragment : BaseFragment() {
         vm = ViewModelProvider(this).get(PokemonVM::class.java)
         val args: PokemonDetailFragmentArgs by navArgs()
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         ivSprite.transitionName = args.url
         ivSprite.load(
             "https://i.pinimg.com/564x/72/e3/29/72e3297ef891c59f9cc57a5452eaece9.jpg",
-            this.ctx
+            requireContext()
         )
         vm.isLoading.distinctUntilChanged().observe(viewLifecycleOwner, Observer {
 

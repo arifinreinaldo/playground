@@ -4,9 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.explore.playground.R
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.HttpDataSource
@@ -27,14 +25,15 @@ class ExoActivity : AppCompatActivity() {
 
     fun getFromURL(url: String): ProgressiveMediaSource {
         val dataSource = DefaultDataSourceFactory(this, Util.getUserAgent(this, "EXO"))
-        return ProgressiveMediaSource.Factory(dataSource).createMediaSource(Uri.parse(url))
+        return ProgressiveMediaSource.Factory(dataSource)
+            .createMediaSource(MediaItem.fromUri(Uri.parse(url)))
     }
 
     fun getFromStorage(): ProgressiveMediaSource {
         val dataSource = DefaultDataSourceFactory(this, Util.getUserAgent(this, "EXO"))
         val file = File(fileSource)
         val uri = Uri.fromFile(file)
-        return ProgressiveMediaSource.Factory(dataSource).createMediaSource(uri)
+        return ProgressiveMediaSource.Factory(dataSource).createMediaSource(MediaItem.fromUri(uri))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +51,7 @@ class ExoActivity : AppCompatActivity() {
 //        player.prepare(getFromRawFile())
 //        player.prepare(getFromStorage())
 
-        player.addListener(object : Player.EventListener {
+        player.addListener(object : Player.Listener {
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                 when (playbackState) {
                     Player.STATE_IDLE -> Log.d("LOG", "IDLE")
@@ -62,22 +61,23 @@ class ExoActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onPlayerError(error: ExoPlaybackException) {
-                if (error.type == ExoPlaybackException.TYPE_SOURCE) {
-                    val cause = error.sourceException
-                    if (cause is HttpDataSource.HttpDataSourceException) {
-                        val exception = cause as HttpDataSource.HttpDataSourceException
-                        val spec = exception.dataSpec
-                        if (exception is HttpDataSource.InvalidResponseCodeException) {
-                            val errCode = exception.responseCode
-                            val errMessage = exception.responseMessage
-                            Log.d("MESG", "$errCode $errMessage")
-                        } else {
-                            val str = exception.cause.toString()
-                            Log.d("MESG", "value $str")
-                        }
-                    }
-                }
+            override fun onPlayerError(error: PlaybackException) {
+
+//                if (error.type == ExoPlaybackException.TYPE_SOURCE) {
+//                    val cause = error.sourceException
+//                    if (cause is HttpDataSource.HttpDataSourceException) {
+//                        val exception = cause as HttpDataSource.HttpDataSourceException
+//                        val spec = exception.dataSpec
+//                        if (exception is HttpDataSource.InvalidResponseCodeException) {
+//                            val errCode = exception.responseCode
+//                            val errMessage = exception.responseMessage
+//                            Log.d("MESG", "$errCode $errMessage")
+//                        } else {
+//                            val str = exception.cause.toString()
+//                            Log.d("MESG", "value $str")
+//                        }
+//                    }
+//                }
             }
 
             override fun onIsPlayingChanged(isPlaying: Boolean) {
